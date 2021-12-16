@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayRight.Cadastro.Domain", "src\PayRight.Cadastro.Domain\PayRight.Cadastro.Domain.csproj", "{6B128B1C-4C57-4737-96B3-CA6A3C521A67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cadastro", "Cadastro", "{DADAAB58-990C-4A6B-BAF3-4E999EE2DB61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayRight.Cadastro.Tests", "tests\PayRight.Cadastro.Tests\PayRight.Cadastro.Tests.csproj", "{F8C04A4C-810C-4B37-824F-97D34236FA2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testes", "Testes", "{3B745A6B-0925-4096-91A9-98BFE497B8DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayRight.Shared", "src\PayRight.Shared\PayRight.Shared.csproj", "{E8ADAC18-A3DC-4138-904B-53064651B938}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B128B1C-4C57-4737-96B3-CA6A3C521A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B128B1C-4C57-4737-96B3-CA6A3C521A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B128B1C-4C57-4737-96B3-CA6A3C521A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B128B1C-4C57-4737-96B3-CA6A3C521A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8C04A4C-810C-4B37-824F-97D34236FA2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C04A4C-810C-4B37-824F-97D34236FA2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8C04A4C-810C-4B37-824F-97D34236FA2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8C04A4C-810C-4B37-824F-97D34236FA2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8ADAC18-A3DC-4138-904B-53064651B938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8ADAC18-A3DC-4138-904B-53064651B938}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8ADAC18-A3DC-4138-904B-53064651B938}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8ADAC18-A3DC-4138-904B-53064651B938}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B128B1C-4C57-4737-96B3-CA6A3C521A67} = {DADAAB58-990C-4A6B-BAF3-4E999EE2DB61}
+		{F8C04A4C-810C-4B37-824F-97D34236FA2E} = {3B745A6B-0925-4096-91A9-98BFE497B8DC}
+	EndGlobalSection
+EndGlobal
