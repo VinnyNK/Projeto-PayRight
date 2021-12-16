@@ -1,0 +1,32 @@
+name: Development Pipeline
+
+on: [ pull_request ]
+    
+env:
+  DOTNET6_VERSION: '6.0.x'
+
+jobs:
+  check-code-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v2
+
+#      - name: 'Running Horusec'
+#        run: |
+#            curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
+#            horusec start -p="./src/" -e="true"
+        
+      - name: Setup .NET ${{ env.DOTNET6_VERSION }} Environment
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET6_VERSION }}
+        
+      - name: Restore dependencies
+        run: dotnet restore
+        
+      - name: Build
+        run: dotnet build --no-restore
+        
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
