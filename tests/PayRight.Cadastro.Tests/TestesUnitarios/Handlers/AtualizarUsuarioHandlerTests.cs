@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Moq;
 using PayRight.Cadastro.Domain.Entities;
 using PayRight.Cadastro.Domain.Handlers;
@@ -9,6 +10,8 @@ using PayRight.Cadastro.Tests.TestesUnitarios.Entities.Fixtures;
 using Xunit;
 
 namespace PayRight.Cadastro.Tests.TestesUnitarios.Handlers;
+
+// Todo: Criar testes dos events notifications e event handlers do mediatr
 
 [Collection(nameof(AtualizarUsuarioCommandCollection))]
 public class AtualizarUsuarioHandlerTests
@@ -36,7 +39,7 @@ public class AtualizarUsuarioHandlerTests
         var handler = new AtualizarUsuarioHandler(usuarioRepository.Object);
 
         // Act
-        var commandResult = await handler.Handle(command);
+        var commandResult = await handler.Handle(command, CancellationToken.None);
         var resultado = handler.IsValid;
 
         // Assert
@@ -55,7 +58,7 @@ public class AtualizarUsuarioHandlerTests
         var handler = new AtualizarUsuarioHandler(usuarioRepository.Object);
 
         // Act
-        var commandResult = await handler.Handle(command);
+        var commandResult = await handler.Handle(command, CancellationToken.None);
         var resultado = handler.IsValid;
 
         // Assert
@@ -75,7 +78,7 @@ public class AtualizarUsuarioHandlerTests
         var handler = new AtualizarUsuarioHandler(usuarioRepository.Object);
 
         // Act
-        var commandResult = await handler.Handle(command);
+        var commandResult = await handler.Handle(command, CancellationToken.None);
         var resultado = handler.IsValid;
 
         // Assert
@@ -97,7 +100,7 @@ public class AtualizarUsuarioHandlerTests
         var handler = new AtualizarUsuarioHandler(usuarioRepository.Object);
 
         // Act
-        var commandResult = await handler.Handle(command);
+        var commandResult = await handler.Handle(command, CancellationToken.None);
         var resultado = handler.IsValid;
 
         // Assert
@@ -118,7 +121,7 @@ public class AtualizarUsuarioHandlerTests
         var handler = new AtualizarUsuarioHandler(usuarioRepository.Object);
 
         // Act
-        var commandResult = await handler.Handle(command);
+        var commandResult = await handler.Handle(command, CancellationToken.None);
         var resultado = handler.IsValid;
 
         // Assert

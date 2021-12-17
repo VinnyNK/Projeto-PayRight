@@ -1,6 +1,8 @@
-﻿namespace PayRight.Shared.Commands;
+﻿using MediatR;
 
-public interface ICommand 
+namespace PayRight.Shared.Commands;
+
+public interface ICommand : IRequest<ICommandResult>
 {
     void Validar();
 }

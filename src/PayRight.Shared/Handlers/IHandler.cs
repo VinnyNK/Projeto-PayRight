@@ -1,8 +1,9 @@
-﻿using PayRight.Shared.Commands;
+﻿using MediatR;
+using PayRight.Shared.Commands;
 
 namespace PayRight.Shared.Handlers;
 
-public interface IHandler<T> where T : ICommand
+public interface IHandler<T> : IRequestHandler<T, ICommandResult> where T : ICommand
 {
-    Task<ICommandResult> Handle(T command);
+    new Task<ICommandResult> Handle(T command, CancellationToken cancellationToken);
 }
