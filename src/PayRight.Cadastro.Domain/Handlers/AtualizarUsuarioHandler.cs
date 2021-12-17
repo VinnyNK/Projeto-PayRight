@@ -1,4 +1,5 @@
 ﻿using Flunt.Notifications;
+using MediatR;
 using PayRight.Cadastro.Domain.Commands;
 using PayRight.Cadastro.Domain.Entities;
 using PayRight.Cadastro.Domain.Repositories;
@@ -17,7 +18,7 @@ public class AtualizarUsuarioHandler : Notifiable<Notification>, IHandler<Atuali
         _usuarioRepository = usuarioRepository;
     }
 
-    public async Task<ICommandResult> Handle(AtualizarUsuarioCommand command)
+    public async Task<ICommandResult> Handle(AtualizarUsuarioCommand command, CancellationToken cancellationToken)
     {
         if (!command.IsValid)
         {

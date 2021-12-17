@@ -2,23 +2,27 @@
 using PayRight.Cadastro.Domain.Commands;
 using PayRight.Cadastro.Domain.Entities;
 using PayRight.Cadastro.Domain.Enums;
+using PayRight.Cadastro.Domain.EventNotifications;
 using PayRight.Cadastro.Domain.Repositories;
 using PayRight.Cadastro.Domain.ValueObjects;
 using PayRight.Shared.Commands;
 using PayRight.Shared.Handlers;
+using PayRight.Shared.Mediator;
 
 namespace PayRight.Cadastro.Domain.Handlers;
 
 public class CriarNovoUsuarioHandler : Notifiable<Notification>, IHandler<CriarNovoUsuarioCpfCommand>, IHandler<CriarNovoUsuarioCnpjCommand>
 {
     private readonly IUsuarioRepository _usuarioRepository;
+    private readonly IMediatorHandler _mediator;
 
-    public CriarNovoUsuarioHandler(IUsuarioRepository usuarioRepository)
+    public CriarNovoUsuarioHandler(IUsuarioRepository usuarioRepository, IMediatorHandler mediator)
     {
         _usuarioRepository = usuarioRepository;
+        _mediator = mediator;
     }
 
-    public async Task<ICommandResult> Handle(CriarNovoUsuarioCpfCommand command)
+    public async Task<ICommandResult> Handle(CriarNovoUsuarioCpfCommand command, CancellationToken cancellationToken)
     {
         command.Validar();
         if (!command.IsValid)
@@ -47,13 +51,16 @@ public class CriarNovoUsuarioHandler : Notifiable<Notification>, IHandler<CriarN
         await _usuarioRepository.CriarNovoUsuario(usuario);
 
         var retorno = await _usuarioRepository.Commit();
+
+        if (!retorno) return new CommandResult(false, "Problemas para criar o usuario");
         
-        return retorno
-            ? new CommandResult(true, "Usuario criado com sucesso")
-            : new CommandResult(false, "Problemas para criar o usuario");
+        await _mediator.PublicarEvento(new UsuarioCriadoNotification(usuario.Id, usuario.NomeCompleto.PrimeiroNome,
+            usuario.NomeUsuario.Endereco));
+        return new CommandResult(true, "Usuario criado com sucesso");
+
     }
     
-    public async Task<ICommandResult> Handle(CriarNovoUsuarioCnpjCommand command)
+    public async Task<ICommandResult> Handle(CriarNovoUsuarioCnpjCommand command, CancellationToken cancellationToken)
     {
         command.Validar();
         if (!command.IsValid)
