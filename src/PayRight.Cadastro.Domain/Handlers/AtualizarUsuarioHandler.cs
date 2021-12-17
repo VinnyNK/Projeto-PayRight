@@ -11,11 +11,13 @@ namespace PayRight.Cadastro.Domain.Handlers;
 
 public class AtualizarUsuarioHandler : Notifiable<Notification>, IHandler<AtualizarUsuarioCommand>
 {
-    private readonly IUsuarioRepository _usuarioRepository;
+    private readonly IUsuarioLeituraRepository _usuarioLeituraRepository;
+    private readonly IUsuarioEscritaRepository _usuarioEscritaRepository;
 
-    public AtualizarUsuarioHandler(IUsuarioRepository usuarioRepository)
+    public AtualizarUsuarioHandler(IUsuarioLeituraRepository usuarioLeituraRepository, IUsuarioEscritaRepository usuarioEscritaRepository)
     {
-        _usuarioRepository = usuarioRepository;
+        _usuarioLeituraRepository = usuarioLeituraRepository;
+        _usuarioEscritaRepository = usuarioEscritaRepository;
     }
 
     public async Task<ICommandResult> Handle(AtualizarUsuarioCommand command, CancellationToken cancellationToken)
@@ -26,7 +28,7 @@ public class AtualizarUsuarioHandler : Notifiable<Notification>, IHandler<Atuali
             return new CommandResult(false, "Problemas na validacao dos campos");
         }
 
-        var usuario = await _usuarioRepository.BuscaUsuario(command.Id);
+        var usuario = await _usuarioLeituraRepository.BuscaUsuario(command.Id);
         if (usuario == null)
         {
             AddNotification("Usuario.Id", "Usuario informado nao existe");
@@ -42,9 +44,9 @@ public class AtualizarUsuarioHandler : Notifiable<Notification>, IHandler<Atuali
         if (!IsValid)
             return new CommandResult(false, "Houve problemas na validacao ");
 
-        await _usuarioRepository.AtualizarUsuario(usuario);
+        _usuarioEscritaRepository.AtualizarUsuario(usuario);
         
-        var retorno = await _usuarioRepository.Commit();
+        var retorno = await _usuarioEscritaRepository.Commit();
         
         return retorno
             ? new CommandResult(true, "Usuario atualizado com sucesso")
@@ -63,7 +65,7 @@ public class AtualizarUsuarioHandler : Notifiable<Notification>, IHandler<Atuali
     {
         if (string.IsNullOrEmpty(command.EnderecoEmail) || usuario.NomeUsuario.Endereco == command.EnderecoEmail) return;
 
-        if (await _usuarioRepository.EmailExiste(command.EnderecoEmail))
+        if (await _usuarioLeituraRepository.EmailExiste(command.EnderecoEmail))
             AddNotification("Email", "Email informado ja existe");
         else
             usuario.AlterarEmail(new Email(command.EnderecoEmail));

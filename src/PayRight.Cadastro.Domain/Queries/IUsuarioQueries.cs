@@ -6,5 +6,5 @@ public interface IUsuarioQueries
 {
     public Task<UsuarioInfoDTO?> BuscaInfoUsuario(Guid id);
 
-    public Task<UsuarioInfoCompletoDTO> BuscaUsuarioCompleto(Guid id);
+    public Task<UsuarioInfoCompletoDTO?> BuscaUsuarioCompleto(Guid id);
 }

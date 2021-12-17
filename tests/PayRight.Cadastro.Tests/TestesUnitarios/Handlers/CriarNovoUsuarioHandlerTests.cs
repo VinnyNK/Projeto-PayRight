@@ -26,12 +26,13 @@ public class CriarNovoUsuarioHandlerTests
     {
         // Arrange
         var command = _criarNovoUsuarioCommandFixture.GerarNovoUsuarioCpfCommand();
-        var usuarioRepository = new Mock<IUsuarioRepository>();
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
         var mediator = new Mock<IMediatorHandler>();
-        var handler = new CriarNovoUsuarioHandler(usuarioRepository.Object, mediator.Object);
-        usuarioRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(false));
-        usuarioRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(false));
-        usuarioRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
+        var handler = new CriarNovoUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object, mediator.Object);
+        usuarioLeituraRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(false));
+        usuarioLeituraRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(false));
+        usuarioEscritaRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
 
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);
@@ -48,12 +49,13 @@ public class CriarNovoUsuarioHandlerTests
     {
         // Arrange
         var command = _criarNovoUsuarioCommandFixture.GerarNovoUsuarioCnpjCommand();
-        var usuarioRepository = new Mock<IUsuarioRepository>();
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
         var mediator = new Mock<IMediatorHandler>();
-        var handler = new CriarNovoUsuarioHandler(usuarioRepository.Object, mediator.Object);
-        usuarioRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(false));
-        usuarioRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(false));
-        usuarioRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
+        var handler = new CriarNovoUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object, mediator.Object);
+        usuarioLeituraRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(false));
+        usuarioLeituraRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(false));
+        usuarioEscritaRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
         
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);
@@ -70,11 +72,12 @@ public class CriarNovoUsuarioHandlerTests
     {
         // Arrange
         var command = _criarNovoUsuarioCommandFixture.GerarNovoUsuarioCpfCommand();
-        var usuarioRepository = new Mock<IUsuarioRepository>();
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
         var mediator = new Mock<IMediatorHandler>();
-        var handler = new CriarNovoUsuarioHandler(usuarioRepository.Object, mediator.Object);
-        usuarioRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(true));
-        usuarioRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(false));
+        var handler = new CriarNovoUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object, mediator.Object);
+        usuarioLeituraRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(true));
+        usuarioLeituraRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(false));
 
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);
@@ -91,11 +94,12 @@ public class CriarNovoUsuarioHandlerTests
     {
         // Arrange
         var command = _criarNovoUsuarioCommandFixture.GerarNovoUsuarioCpfCommand();
-        var usuarioRepository = new Mock<IUsuarioRepository>();
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
         var mediator = new Mock<IMediatorHandler>();
-        var handler = new CriarNovoUsuarioHandler(usuarioRepository.Object, mediator.Object);
-        usuarioRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(false));
-        usuarioRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(true));
+        var handler = new CriarNovoUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object, mediator.Object);
+        usuarioLeituraRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(false));
+        usuarioLeituraRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(true));
         
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);
@@ -112,11 +116,12 @@ public class CriarNovoUsuarioHandlerTests
     {
         // Arrange
         var command = _criarNovoUsuarioCommandFixture.GerarNovoUsuarioCnpjCommand();
-        var usuarioRepository = new Mock<IUsuarioRepository>();
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
         var mediator = new Mock<IMediatorHandler>();
-        var handler = new CriarNovoUsuarioHandler(usuarioRepository.Object, mediator.Object);
-        usuarioRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(false));
-        usuarioRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(true));
+        var handler = new CriarNovoUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object, mediator.Object);
+        usuarioLeituraRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(false));
+        usuarioLeituraRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(true));
         
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);
@@ -134,11 +139,12 @@ public class CriarNovoUsuarioHandlerTests
     {
         // Arrange
         var command = _criarNovoUsuarioCommandFixture.GerarNovoUsuarioCnpjCommand();
-        var usuarioRepository = new Mock<IUsuarioRepository>();
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
         var mediator = new Mock<IMediatorHandler>();
-        var handler = new CriarNovoUsuarioHandler(usuarioRepository.Object, mediator.Object);
-        usuarioRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(true));
-        usuarioRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(false));
+        var handler = new CriarNovoUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object, mediator.Object);
+        usuarioLeituraRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(true));
+        usuarioLeituraRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(false));
         
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);
@@ -155,12 +161,13 @@ public class CriarNovoUsuarioHandlerTests
     {
         // Arrange
         var command = _criarNovoUsuarioCommandFixture.GerarNovoUsuarioCpfCommand();
-        var usuarioRepository = new Mock<IUsuarioRepository>();
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
         var mediator = new Mock<IMediatorHandler>();
-        var handler = new CriarNovoUsuarioHandler(usuarioRepository.Object, mediator.Object);
-        usuarioRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(false));
-        usuarioRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(false));
-        usuarioRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
+        var handler = new CriarNovoUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object, mediator.Object);
+        usuarioLeituraRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail)).Returns(Task.FromResult(false));
+        usuarioLeituraRepository.Setup(_ => _.DocumentoExiste(command.NumeroDocumento)).Returns(Task.FromResult(false));
+        usuarioEscritaRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
 
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);

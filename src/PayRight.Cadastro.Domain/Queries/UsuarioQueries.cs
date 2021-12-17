@@ -5,50 +5,24 @@ namespace PayRight.Cadastro.Domain.Queries;
 
 public class UsuarioQueries : IUsuarioQueries
 {
-    private readonly IUsuarioRepository _usuarioRepository;
+    private readonly IUsuarioLeituraRepository _usuarioLeituraRepository;
 
-    public UsuarioQueries(IUsuarioRepository usuarioRepository)
+    public UsuarioQueries(IUsuarioLeituraRepository usuarioLeituraRepository)
     {
-        _usuarioRepository = usuarioRepository;
+        _usuarioLeituraRepository = usuarioLeituraRepository;
     }
 
     public async Task<UsuarioInfoDTO?> BuscaInfoUsuario(Guid id)
     {
-        var usuario = await _usuarioRepository.BuscaUsuario(id);
+        var usuario = await _usuarioLeituraRepository.BuscaUsuarioQuery(id);
 
-        if (usuario == null) return null;
-
-        var usuarioInfo = new UsuarioInfoDTO()
-        {
-            Id = usuario.Id,
-            NomeCompleto = $"{usuario.NomeCompleto.PrimeiroNome} {usuario.NomeCompleto.Sobrenome}",
-            EnderecoEmail = usuario.NomeUsuario.Endereco,
-            Ativo = usuario.Ativo,
-            UltimaAtualizacaoEm = usuario.UltimaAtualizacaoEm
-        };
-
-        return usuarioInfo;
+        return usuario;
     }
 
-    public async Task<UsuarioInfoCompletoDTO> BuscaUsuarioCompleto(Guid id)
+    public async Task<UsuarioInfoCompletoDTO?> BuscaUsuarioCompleto(Guid id)
     {
-        var usuario = await _usuarioRepository.BuscaUsuarioCompleto(id);
-        
-        if (usuario == null) return null!;
+        var usuario = await _usuarioLeituraRepository.BuscaUsuarioCompletoQuery(id);
 
-        var usuarioDto = new UsuarioInfoCompletoDTO()
-        {
-            Id = usuario.Id,
-            PrimeiroNome = usuario.NomeCompleto.PrimeiroNome,
-            Sobrenome = usuario.NomeCompleto.Sobrenome,
-            EnderecoEmail = usuario.NomeUsuario.Endereco,
-            TipoDocumento = usuario.Documento.TipoDocumento,
-            NumeroDocumento = usuario.Documento.Numero,
-            Ativo = usuario.Ativo,
-            CriadoEm = usuario.CriadoEm,
-            UltimaAtualizacaoEm = usuario.UltimaAtualizacaoEm
-        };
-
-        return usuarioDto;
+        return usuario;
     }
 }
