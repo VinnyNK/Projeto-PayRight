@@ -30,7 +30,7 @@ public class CriarNovoUsuarioHandler : Notifiable<Notification>, IHandler<CriarN
         if (!command.IsValid)
         {
             AddNotifications(command);
-            return new CommandResult(false, "Problemas nos dados informados para criar o usuario");
+            return new CommandResult(false, "Problemas nos dados informados para criar o usuario", Notifications);
         }
 
         if (await _usuarioLeituraRepository.EmailExiste(command.EnderecoEmail))
@@ -48,17 +48,17 @@ public class CriarNovoUsuarioHandler : Notifiable<Notification>, IHandler<CriarN
         AddNotifications(usuario);
 
         if (!IsValid)
-            return new CommandResult(false, "Problemas nos dados informados para criar o usuario");
+            return new CommandResult(false, "Problemas nos dados informados para criar o usuario", Notifications);
         
         await _usuarioEscritaRepository.CriarNovoUsuario(usuario);
 
         var retorno = await _usuarioEscritaRepository.Commit();
 
-        if (!retorno) return new CommandResult(false, "Problemas para criar o usuario");
+        if (!retorno) return new CommandResult(false, "Problemas para criar o usuario", Notifications);
         
         await _mediator.PublicarEvento(new UsuarioCriadoNotification(usuario.Id, usuario.NomeCompleto.PrimeiroNome,
             usuario.NomeUsuario.Endereco));
-        return new CommandResult(true, "Usuario criado com sucesso");
+        return new CommandResult(true, "Usuario criado com sucesso", Notifications);
 
     }
     

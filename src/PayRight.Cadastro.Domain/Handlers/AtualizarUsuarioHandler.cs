@@ -1,5 +1,4 @@
 ﻿using Flunt.Notifications;
-using MediatR;
 using PayRight.Cadastro.Domain.Commands;
 using PayRight.Cadastro.Domain.Entities;
 using PayRight.Cadastro.Domain.Repositories;
@@ -25,7 +24,7 @@ public class AtualizarUsuarioHandler : Notifiable<Notification>, IHandler<Atuali
         if (!command.IsValid)
         {
             AddNotifications(command);
-            return new CommandResult(false, "Problemas na validacao dos campos");
+            return new CommandResult(false, "Problemas na validacao dos campos", Notifications);
         }
 
         var usuario = await _usuarioLeituraRepository.BuscaUsuario(command.Id);
@@ -42,7 +41,7 @@ public class AtualizarUsuarioHandler : Notifiable<Notification>, IHandler<Atuali
         AddNotifications(usuario);
         
         if (!IsValid)
-            return new CommandResult(false, "Houve problemas na validacao ");
+            return new CommandResult(false, "Houve problemas na validacao", Notifications);
 
         _usuarioEscritaRepository.AtualizarUsuario(usuario);
         
@@ -50,7 +49,7 @@ public class AtualizarUsuarioHandler : Notifiable<Notification>, IHandler<Atuali
         
         return retorno
             ? new CommandResult(true, "Usuario atualizado com sucesso")
-            : new CommandResult(false, "Problemas para atualizar o usuario");
+            : new CommandResult(false, "Problemas para atualizar o usuario", Notifications);
     }
 
     private void AlteraNomeCompletoUsuario(Usuario usuario, AtualizarUsuarioCommand command)

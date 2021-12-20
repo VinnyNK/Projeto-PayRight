@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Flunt.Notifications;
+using MediatR;
 
 namespace PayRight.Shared.Commands;
 

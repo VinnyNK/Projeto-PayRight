@@ -14,9 +14,9 @@ public class MediatorHandler : Notifiable<Notification>, IMediatorHandler
         _mediator = mediator;
     }
 
-    public async Task<ICommandResult> EnviarComando<T>(T comando) where T : ICommand
+    public async Task<ICommandResult> EnviarComando<T>(T command) where T : ICommand
     {
-        return await _mediator.Send(comando);
+        return await _mediator.Send(command);
         // Todo: verificar como passar notifications para controller
     }
 
