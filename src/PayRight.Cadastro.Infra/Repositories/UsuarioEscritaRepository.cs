@@ -6,7 +6,7 @@ namespace PayRight.Cadastro.Infra.Repositories;
 
 public class UsuarioEscritaRepository : Repository<Usuario>, IUsuarioEscritaRepository
 {
-    public UsuarioEscritaRepository(ContextoDbCoadastro db) : base(db)
+    public UsuarioEscritaRepository(ContextoDbCadastroEscrita db) : base(db)
     { }
 
     public async Task CriarNovoUsuario(Usuario usuario)
