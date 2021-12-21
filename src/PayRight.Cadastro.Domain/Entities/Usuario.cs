@@ -24,6 +24,8 @@ public class Usuario : Entity
 
     public DateTime UltimaAtualizacaoEm { get; private set; }
 
+    protected Usuario() {}
+    
     public Usuario(NomeCompleto nomeCompleto, Email nomeUsuario, Documento documento, string senha, string confirmacaoSenha)
     {
         NomeCompleto = nomeCompleto;

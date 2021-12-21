@@ -11,8 +11,6 @@ using Xunit;
 
 namespace PayRight.Cadastro.Tests.TestesUnitarios.Handlers;
 
-// Todo: Criar testes dos events notifications e event handlers do mediatr
-
 [Collection(nameof(AtualizarUsuarioCommandCollection))]
 public class AtualizarUsuarioHandlerTests
 {
@@ -32,11 +30,12 @@ public class AtualizarUsuarioHandlerTests
         // Arrange
         var usuario = _usuarioTestsFixture.GerarNovoUsuario();
         var command = _atualizarUsuarioCommandFixture.GerarAtualizarUsuarioCommand(usuario);
-        var usuarioRepository = new Mock<IUsuarioRepository>();
-        usuarioRepository.Setup(_ => _.BuscaUsuario(command.Id)).Returns(Task.FromResult(usuario)!);
-        usuarioRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail!)).Returns(Task.FromResult(false));
-        usuarioRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
-        var handler = new AtualizarUsuarioHandler(usuarioRepository.Object);
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
+        usuarioLeituraRepository.Setup(_ => _.BuscaUsuario(command.Id)).Returns(Task.FromResult(usuario)!);
+        usuarioLeituraRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail!)).Returns(Task.FromResult(false));
+        usuarioEscritaRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
+        var handler = new AtualizarUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object);
 
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);
@@ -54,8 +53,9 @@ public class AtualizarUsuarioHandlerTests
         // Arrange
         var usuario = _usuarioTestsFixture.GerarNovoUsuario();
         var command = _atualizarUsuarioCommandFixture.GerarAtualizarUsuarioCommand(usuario, primeiroNome: "Fula no");
-        var usuarioRepository = new Mock<IUsuarioRepository>();
-        var handler = new AtualizarUsuarioHandler(usuarioRepository.Object);
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
+        var handler = new AtualizarUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object);
 
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);
@@ -73,9 +73,10 @@ public class AtualizarUsuarioHandlerTests
         // Arrange
         var usuario = _usuarioTestsFixture.GerarNovoUsuario();
         var command = _atualizarUsuarioCommandFixture.GerarAtualizarUsuarioCommand(usuario);
-        var usuarioRepository = new Mock<IUsuarioRepository>();
-        usuarioRepository.Setup(_ => _.BuscaUsuario(command.Id)).Returns(Task.FromResult<Usuario>(null!)!);
-        var handler = new AtualizarUsuarioHandler(usuarioRepository.Object);
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
+        usuarioLeituraRepository.Setup(_ => _.BuscaUsuario(command.Id)).Returns(Task.FromResult<Usuario>(null!)!);
+        var handler = new AtualizarUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object);
 
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);
@@ -93,11 +94,12 @@ public class AtualizarUsuarioHandlerTests
         // Arrange
         var usuario = _usuarioTestsFixture.GerarNovoUsuario();
         var command = _atualizarUsuarioCommandFixture.GerarAtualizarUsuarioCommand(usuario);
-        var usuarioRepository = new Mock<IUsuarioRepository>();
-        usuarioRepository.Setup(_ => _.BuscaUsuario(command.Id)).Returns(Task.FromResult(usuario)!);
-        usuarioRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail!)).Returns(Task.FromResult(false));
-        usuarioRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(false));
-        var handler = new AtualizarUsuarioHandler(usuarioRepository.Object);
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
+        usuarioLeituraRepository.Setup(_ => _.BuscaUsuario(command.Id)).Returns(Task.FromResult(usuario)!);
+        usuarioLeituraRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail!)).Returns(Task.FromResult(false));
+        usuarioEscritaRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(false));
+        var handler = new AtualizarUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object);
 
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);
@@ -115,10 +117,11 @@ public class AtualizarUsuarioHandlerTests
         // Arrange
         var usuario = _usuarioTestsFixture.GerarNovoUsuario();
         var command = _atualizarUsuarioCommandFixture.GerarAtualizarUsuarioCommand(usuario);
-        var usuarioRepository = new Mock<IUsuarioRepository>();
-        usuarioRepository.Setup(_ => _.BuscaUsuario(command.Id)).Returns(Task.FromResult(usuario)!);
-        usuarioRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail!)).Returns(Task.FromResult(true));
-        var handler = new AtualizarUsuarioHandler(usuarioRepository.Object);
+        var usuarioEscritaRepository = new Mock<IUsuarioEscritaRepository>();
+        var usuarioLeituraRepository = new Mock<IUsuarioLeituraRepository>();
+        usuarioLeituraRepository.Setup(_ => _.BuscaUsuario(command.Id)).Returns(Task.FromResult(usuario)!);
+        usuarioLeituraRepository.Setup(_ => _.EmailExiste(command.EnderecoEmail!)).Returns(Task.FromResult(true));
+        var handler = new AtualizarUsuarioHandler(usuarioLeituraRepository.Object, usuarioEscritaRepository.Object);
 
         // Act
         var commandResult = await handler.Handle(command, CancellationToken.None);

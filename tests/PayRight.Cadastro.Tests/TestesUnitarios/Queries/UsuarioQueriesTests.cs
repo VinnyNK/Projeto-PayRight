@@ -25,9 +25,9 @@ public class UsuarioQueriesTests
     public async Task DeveRetornarUsuarioInfoDtoChamarUsuarioExistente()
     {
         // Arrange
-        var usuarioRepository = new Mock<IUsuarioRepository>();
+        var usuarioRepository = new Mock<IUsuarioLeituraRepository>();
         var usuario = _usuarioFixture.GerarNovoUsuario();
-        usuarioRepository.Setup(_ => _.BuscaUsuario(usuario.Id)).Returns(Task.FromResult(usuario)!);
+        usuarioRepository.Setup(_ => _.BuscaUsuarioQuery(usuario.Id)).Returns(Task.FromResult(new UsuarioInfoDTO())!);
         var queries = new UsuarioQueries(usuarioRepository.Object);
 
         // Act
@@ -42,8 +42,8 @@ public class UsuarioQueriesTests
     public async Task DeveRetornarNullChamarUsuarioNaoExistente()
     {
         // Arrange
-        var usuarioRepository = new Mock<IUsuarioRepository>();
-        usuarioRepository.Setup(_ => _.BuscaUsuario(Guid.NewGuid())).Returns(Task.FromResult<Usuario>(null!)!);
+        var usuarioRepository = new Mock<IUsuarioLeituraRepository>();
+        usuarioRepository.Setup(_ => _.BuscaUsuarioQuery(Guid.NewGuid())).Returns(Task.FromResult<UsuarioInfoDTO>(null!)!);
         var queries = new UsuarioQueries(usuarioRepository.Object);
 
         // Act
@@ -58,9 +58,9 @@ public class UsuarioQueriesTests
     public async Task DeveRetornarUsuarioInfoCompletoDtoChamarUsuarioExistente()
     {
         // Arrange
-        var usuarioRepository = new Mock<IUsuarioRepository>();
+        var usuarioRepository = new Mock<IUsuarioLeituraRepository>();
         var usuario = _usuarioFixture.GerarNovoUsuario();
-        usuarioRepository.Setup(_ => _.BuscaUsuarioCompleto(usuario.Id)).Returns(Task.FromResult(usuario)!);
+        usuarioRepository.Setup(_ => _.BuscaUsuarioCompletoQuery(usuario.Id)).Returns(Task.FromResult(new UsuarioInfoCompletoDTO())!);
         var queries = new UsuarioQueries(usuarioRepository.Object);
 
         // Act
@@ -75,8 +75,8 @@ public class UsuarioQueriesTests
     public async Task DeveRetornarNullQueryUsuarioCompletoUsuarioNaoExistente()
     {
         // Arrange
-        var usuarioRepository = new Mock<IUsuarioRepository>();
-        usuarioRepository.Setup(_ => _.BuscaUsuario(Guid.NewGuid())).Returns(Task.FromResult<Usuario>(null!)!);
+        var usuarioRepository = new Mock<IUsuarioLeituraRepository>();
+        usuarioRepository.Setup(_ => _.BuscaUsuarioCompletoQuery(Guid.NewGuid())).Returns(Task.FromResult<UsuarioInfoCompletoDTO>(null!)!);
         var queries = new UsuarioQueries(usuarioRepository.Object);
 
         // Act

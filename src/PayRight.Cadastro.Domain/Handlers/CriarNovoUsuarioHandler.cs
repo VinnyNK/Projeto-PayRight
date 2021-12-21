@@ -13,13 +13,15 @@ namespace PayRight.Cadastro.Domain.Handlers;
 
 public class CriarNovoUsuarioHandler : Notifiable<Notification>, IHandler<CriarNovoUsuarioCpfCommand>, IHandler<CriarNovoUsuarioCnpjCommand>
 {
-    private readonly IUsuarioRepository _usuarioRepository;
+    private readonly IUsuarioLeituraRepository _usuarioLeituraRepository;
+    private readonly IUsuarioEscritaRepository _usuarioEscritaRepository;
     private readonly IMediatorHandler _mediator;
 
-    public CriarNovoUsuarioHandler(IUsuarioRepository usuarioRepository, IMediatorHandler mediator)
+    public CriarNovoUsuarioHandler(IUsuarioLeituraRepository usuarioLeituraRepository, IUsuarioEscritaRepository usuarioEscritaRepository, IMediatorHandler mediator)
     {
-        _usuarioRepository = usuarioRepository;
+        _usuarioLeituraRepository = usuarioLeituraRepository;
         _mediator = mediator;
+        _usuarioEscritaRepository = usuarioEscritaRepository;
     }
 
     public async Task<ICommandResult> Handle(CriarNovoUsuarioCpfCommand command, CancellationToken cancellationToken)
@@ -28,13 +30,13 @@ public class CriarNovoUsuarioHandler : Notifiable<Notification>, IHandler<CriarN
         if (!command.IsValid)
         {
             AddNotifications(command);
-            return new CommandResult(false, "Problemas nos dados informados para criar o usuario");
+            return new CommandResult(false, "Problemas nos dados informados para criar o usuario", Notifications);
         }
 
-        if (await _usuarioRepository.EmailExiste(command.EnderecoEmail))
+        if (await _usuarioLeituraRepository.EmailExiste(command.EnderecoEmail))
             AddNotification("Email", "Endereco de e-mail informado ja esta em uso");
         
-        if (await _usuarioRepository.DocumentoExiste(command.NumeroDocumento))
+        if (await _usuarioLeituraRepository.DocumentoExiste(command.NumeroDocumento))
             AddNotification("Documento", "Documento informado ja esta em uso");
 
         var nomeCompleto = new NomeCompleto(command.PrimeiroNome, command.Sobrenome);
@@ -46,17 +48,17 @@ public class CriarNovoUsuarioHandler : Notifiable<Notification>, IHandler<CriarN
         AddNotifications(usuario);
 
         if (!IsValid)
-            return new CommandResult(false, "Problemas nos dados informados para criar o usuario");
+            return new CommandResult(false, "Problemas nos dados informados para criar o usuario", Notifications);
         
-        await _usuarioRepository.CriarNovoUsuario(usuario);
+        await _usuarioEscritaRepository.CriarNovoUsuario(usuario);
 
-        var retorno = await _usuarioRepository.Commit();
+        var retorno = await _usuarioEscritaRepository.Commit();
 
-        if (!retorno) return new CommandResult(false, "Problemas para criar o usuario");
+        if (!retorno) return new CommandResult(false, "Problemas para criar o usuario", Notifications);
         
         await _mediator.PublicarEvento(new UsuarioCriadoNotification(usuario.Id, usuario.NomeCompleto.PrimeiroNome,
             usuario.NomeUsuario.Endereco));
-        return new CommandResult(true, "Usuario criado com sucesso");
+        return new CommandResult(true, "Usuario criado com sucesso", Notifications);
 
     }
     
@@ -69,10 +71,10 @@ public class CriarNovoUsuarioHandler : Notifiable<Notification>, IHandler<CriarN
             return new CommandResult(false, "Problemas nos dados informados para criar o usuario");
         }
 
-        if (await _usuarioRepository.EmailExiste(command.EnderecoEmail))
+        if (await _usuarioLeituraRepository.EmailExiste(command.EnderecoEmail))
             AddNotification("Email", "Endereco de e-mail informado ja esta em uso");
         
-        if (await _usuarioRepository.DocumentoExiste(command.NumeroDocumento))
+        if (await _usuarioLeituraRepository.DocumentoExiste(command.NumeroDocumento))
             AddNotification("Documento", "Documento informado ja esta em uso");
 
         var nomeCompleto = new NomeCompleto(command.PrimeiroNome, command.Sobrenome);
@@ -86,9 +88,9 @@ public class CriarNovoUsuarioHandler : Notifiable<Notification>, IHandler<CriarN
         if (!IsValid)
             return new CommandResult(false, "Problemas nos dados informados para criar o usuario");
         
-        await _usuarioRepository.CriarNovoUsuario(usuario);
+        await _usuarioEscritaRepository.CriarNovoUsuario(usuario);
 
-        var retorno = await _usuarioRepository.Commit();
+        var retorno = await _usuarioEscritaRepository.Commit();
         
         return retorno
             ? new CommandResult(true, "Usuario criado com sucesso")

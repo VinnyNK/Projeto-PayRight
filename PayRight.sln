@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testes", "Testes", "{3B745A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayRight.Shared", "src\PayRight.Shared\PayRight.Shared.csproj", "{E8ADAC18-A3DC-4138-904B-53064651B938}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayRight.Cadastro.Infra", "src\PayRight.Cadastro.Infra\PayRight.Cadastro.Infra.csproj", "{B716D22B-060A-4234-95D6-AE0713318301}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayRight.Cadastro.API", "src\PayRight.Cadastro.API\PayRight.Cadastro.API.csproj", "{12055009-86A0-4C3B-96C5-DCC99C392F30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,9 +32,19 @@ Global
 		{E8ADAC18-A3DC-4138-904B-53064651B938}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8ADAC18-A3DC-4138-904B-53064651B938}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8ADAC18-A3DC-4138-904B-53064651B938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B716D22B-060A-4234-95D6-AE0713318301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B716D22B-060A-4234-95D6-AE0713318301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B716D22B-060A-4234-95D6-AE0713318301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B716D22B-060A-4234-95D6-AE0713318301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12055009-86A0-4C3B-96C5-DCC99C392F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12055009-86A0-4C3B-96C5-DCC99C392F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12055009-86A0-4C3B-96C5-DCC99C392F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12055009-86A0-4C3B-96C5-DCC99C392F30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6B128B1C-4C57-4737-96B3-CA6A3C521A67} = {DADAAB58-990C-4A6B-BAF3-4E999EE2DB61}
 		{F8C04A4C-810C-4B37-824F-97D34236FA2E} = {3B745A6B-0925-4096-91A9-98BFE497B8DC}
+		{B716D22B-060A-4234-95D6-AE0713318301} = {DADAAB58-990C-4A6B-BAF3-4E999EE2DB61}
+		{12055009-86A0-4C3B-96C5-DCC99C392F30} = {DADAAB58-990C-4A6B-BAF3-4E999EE2DB61}
 	EndGlobalSection
 EndGlobal
