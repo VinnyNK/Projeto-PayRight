@@ -18,5 +18,12 @@ public class AutoMapperConfiguration : Profile
                 _.Senha, 
                 _.ConfirmacaoSenha)
             );
+
+        CreateMap<AtualizarUsuarioRequestDto, AtualizarUsuarioCommand>()
+            .ConstructUsing(_ => new AtualizarUsuarioCommand(
+               _.PrimeiroNome,
+               _.Sobrenome,
+               _.EnderecoEmail)
+            );
     }
 }

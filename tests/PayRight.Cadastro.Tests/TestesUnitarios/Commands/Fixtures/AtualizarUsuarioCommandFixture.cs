@@ -15,14 +15,14 @@ public class AtualizarUsuarioCommandFixture : IDisposable
     public AtualizarUsuarioCommand GerarAtualizarUsuarioCommand(string primeiroNome = "Laysla", string sobrenome = "Esparteiro Freitas", string enderecoEmail = "laysla.freitas@gmail.com") 
     { 
         var criarUsuarioFixture = new UsuarioTestsFixture(); 
-        var usuario = criarUsuarioFixture.GerarNovoUsuario(); 
-        return new AtualizarUsuarioCommand(usuario.Id, primeiroNome, sobrenome, enderecoEmail); 
+        var usuario = criarUsuarioFixture.GerarNovoUsuario();
+        return new AtualizarUsuarioCommand(primeiroNome, sobrenome, enderecoEmail){Id = usuario.Id}; 
     }
     
     public AtualizarUsuarioCommand GerarAtualizarUsuarioCommand(Usuario usuario, string primeiroNome = "Laysla", string sobrenome = "Esparteiro Freitas", string enderecoEmail = "laysla.freitas@gmail.com") 
     { 
         var criarUsuarioFixture = new UsuarioTestsFixture();
-        return new AtualizarUsuarioCommand(usuario.Id, primeiroNome, sobrenome, enderecoEmail); 
+        return new AtualizarUsuarioCommand(primeiroNome, sobrenome, enderecoEmail){Id = usuario.Id}; 
     }
     
     public void Dispose() { } 

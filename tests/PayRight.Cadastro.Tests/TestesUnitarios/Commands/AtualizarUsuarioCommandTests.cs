@@ -35,7 +35,6 @@ public class AtualizarUsuarioCommandTests
     [InlineData("emailexample.com")]
     [InlineData("@example.com")]
     [InlineData("")]
-    [InlineData(null)]
     public void DeveRetornarErroAtualizarUsuarioCommandEnderecoEmailInvalido(string enderecoEmail)
     {
         // Arrange
@@ -56,7 +55,6 @@ public class AtualizarUsuarioCommandTests
     [InlineData("Ful ano")]
     [InlineData("vHQbuuHmjkMjekcnHKosdxUtAANkwNxtNFgeYeLsRCYdFUVHqodvNArtsxPgFEXMa")]
     [InlineData("")]
-    [InlineData(null)]
     public void DeveRetornarErroAtualizarUsuarioCommandPrimeiroNomeInvalido(string primeiroNome)
     {
         // Arrange
@@ -73,8 +71,6 @@ public class AtualizarUsuarioCommandTests
     [Theory]
     [InlineData("an")]
     [InlineData("vHQbuuHmjkMjekcnHKosdxUtAANkwNxtNFgeYeLsRCYdFUVHqodvNArtsxPgFEXMa")]
-    [InlineData("")]
-    [InlineData(null)]
     public void DeveRetornarErroAtualizarUsuarioCommandSobrenomeInvalido(string sobrenome)
     {
         // Arrange

@@ -4,17 +4,17 @@ namespace PayRight.Cadastro.API.DTOs;
 
 public class CriarNovoUsuarioRequestDto
 {
-    public string PrimeiroNome { get; set; }
+    public string? PrimeiroNome { get; set; }
     
-    public string Sobrenome { get; set; }
+    public string? Sobrenome { get; set; }
 
-    public string EnderecoEmail { get; set; }
+    public string? EnderecoEmail { get; set; }
     
-    public string NumeroDocumento { get; set; }
+    public string? NumeroDocumento { get; set; }
 
-    public string Senha { get; set; }
+    public string? Senha { get; set; }
 
-    public string ConfirmacaoSenha { get; set; }
+    public string? ConfirmacaoSenha { get; set; }
     
     public class CriarNovoUsuarioRequestValidation : AbstractValidator<CriarNovoUsuarioRequestDto>
     {
@@ -27,7 +27,7 @@ public class CriarNovoUsuarioRequestDto
                 .NotEmpty();
 
             RuleFor(_ => _.EnderecoEmail)
-                .NotEmpty();
+                .NotEmpty().EmailAddress();
 
             RuleFor(_ => _.Senha)
                 .NotEmpty();
