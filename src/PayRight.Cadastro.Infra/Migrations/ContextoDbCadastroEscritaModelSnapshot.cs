@@ -30,9 +30,6 @@ namespace PayRight.Cadastro.Infra.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true);
 
-                    b.Property<string>("ConfirmacaoSenha")
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
