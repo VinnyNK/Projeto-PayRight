@@ -2,7 +2,7 @@
 
 namespace PayRight.Shared.Entities;
 
-public abstract class Entity : Notifiable<Notification>
+public abstract class Entity : Notifiable<Notification>, IEntity
 {
     public Guid Id { get; }
     
