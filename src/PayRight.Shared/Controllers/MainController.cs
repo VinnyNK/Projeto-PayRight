@@ -10,14 +10,22 @@ namespace PayRight.Shared.Controllers;
 [Produces("application/json")]
 public abstract class MainController : ControllerBase
 {
-    protected readonly IMapper Mapper;
-    protected readonly IMediatorHandler MediatorHandler;
+    protected readonly IMapper? Mapper;
+    protected readonly IMediatorHandler? MediatorHandler;
     
     protected MainController(IMapper mapper, IMediatorHandler mediatorHandler)
     {
         Mapper = mapper;
         MediatorHandler = mediatorHandler;
     }
+    
+    protected MainController(IMapper mapper)
+    {
+        Mapper = mapper;
+    }
+    
+    protected MainController()
+    { }
 
     protected IActionResult RetornaErro(IReadOnlyCollection<Notification> notifications)
     {
