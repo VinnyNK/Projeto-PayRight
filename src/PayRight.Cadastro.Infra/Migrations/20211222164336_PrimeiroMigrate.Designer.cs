@@ -11,7 +11,7 @@ using PayRight.Cadastro.Infra.Contexts;
 namespace PayRight.Cadastro.Infra.Migrations
 {
     [DbContext(typeof(ContextoDbCadastroEscrita))]
-    [Migration("20211220145023_PrimeiroMigrate")]
+    [Migration("20211222164336_PrimeiroMigrate")]
     partial class PrimeiroMigrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,9 +31,6 @@ namespace PayRight.Cadastro.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true);
-
-                    b.Property<string>("ConfirmacaoSenha")
-                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
