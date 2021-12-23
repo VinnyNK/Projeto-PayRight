@@ -4,6 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>fc47cee4-4a62-4752-9e42-0a5f46b9c33d</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,6 +12,7 @@
         <PackageReference Include="FluentValidation" Version="10.3.6" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
           <PrivateAssets>all</PrivateAssets>

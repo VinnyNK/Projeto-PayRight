@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddAutenticacao(builder.Configuration);
+
 builder.Services.SwaggerService();
 
 builder.Services.AddAutoMapper(typeof(Program));
@@ -31,7 +33,7 @@ app.SwaggerConfigure();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.ConfigureAutenticacao();
 
 app.MapControllers();
 
