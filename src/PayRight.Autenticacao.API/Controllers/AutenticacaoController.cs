@@ -25,5 +25,4 @@ public class AutenticacaoController : MainController
 
         return token == null ? RetornaErro(_autenticacaoService.ServiceNotifications) : Ok(Mapper!.Map<TokenResponseDto>(token));
     }
-
 }

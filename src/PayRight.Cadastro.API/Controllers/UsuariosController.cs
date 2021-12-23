@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PayRight.Cadastro.API.DTOs;
 using PayRight.Cadastro.Domain.Commands;
@@ -18,11 +19,13 @@ public class UsuariosController : MainController
     {
         _usuarioQueries = usuarioQueries;
     }
-
-    [HttpGet("{usuarioId:guid}")]
-    public async Task<IActionResult> BuscaInformacaoUsuario(Guid usuarioId)
+    
+    [HttpGet]
+    public async Task<IActionResult> BuscaInformacaoUsuario()
     {
-        var usuario = await _usuarioQueries.BuscaInfoUsuario(usuarioId);
+        var id = BuscaIdDoUsuarioAutenticado();
+        if (id == null) { return Unauthorized(); }
+        var usuario = await _usuarioQueries.BuscaInfoUsuario((Guid) id);
 
         if (usuario == null)
             return NotFound();
@@ -30,10 +33,12 @@ public class UsuariosController : MainController
         return Ok(usuario);
     }
     
-    [HttpGet("{usuarioId:guid}/completo")]
-    public async Task<IActionResult> BuscaInformacaoUsuarioCompleto(Guid usuarioId)
+    [HttpGet("completo")]
+    public async Task<IActionResult> BuscaInformacaoUsuarioCompleto()
     {
-        var usuario = await _usuarioQueries.BuscaUsuarioCompleto(usuarioId);
+        var id = BuscaIdDoUsuarioAutenticado();
+        if (id == null) { return Unauthorized(); }
+        var usuario = await _usuarioQueries.BuscaUsuarioCompleto((Guid) id);
 
         if (usuario == null)
             return NotFound();
@@ -42,28 +47,31 @@ public class UsuariosController : MainController
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> CriarUsuario(CriarNovoUsuarioRequestDto criarNovoUsuarioRequestDto)
     {
-        var criarNovoUsuarioCommand = Mapper.Map<CriarNovoUsuarioCpfCommand>(criarNovoUsuarioRequestDto);
+        var criarNovoUsuarioCommand = Mapper!.Map<CriarNovoUsuarioCpfCommand>(criarNovoUsuarioRequestDto);
 
         if (!criarNovoUsuarioCommand.IsValid)
             return RetornaErro(criarNovoUsuarioCommand.Notifications);
         
-        var resultado = await MediatorHandler.EnviarComando(criarNovoUsuarioCommand);
+        var resultado = await MediatorHandler!.EnviarComando(criarNovoUsuarioCommand);
 
         return !resultado.Sucesso ? RetornaErro(resultado.CommandNotifications) : Created(nameof(CriarUsuario), null);
     }
 
-    [HttpPut("{usuarioId:guid}")]
-    public async Task<IActionResult> AtualizarUsuario(AtualizarUsuarioRequestDto atualizarUsuarioRequestDto, Guid usuarioId)
+    [HttpPut]
+    public async Task<IActionResult> AtualizarUsuario(AtualizarUsuarioRequestDto atualizarUsuarioRequestDto)
     {
-        var atualizarUsuarioCommand = Mapper.Map<AtualizarUsuarioCommand>(atualizarUsuarioRequestDto);
-        atualizarUsuarioCommand.Id = usuarioId;
+        var id = BuscaIdDoUsuarioAutenticado();
+        if (id == null) { return Unauthorized(); }
+        var atualizarUsuarioCommand = Mapper!.Map<AtualizarUsuarioCommand>(atualizarUsuarioRequestDto);
+        atualizarUsuarioCommand.Id = (Guid) id;
         
         if (!atualizarUsuarioCommand.IsValid)
             return RetornaErro(atualizarUsuarioCommand.Notifications);
 
-        var resultado = await MediatorHandler.EnviarComando(atualizarUsuarioCommand);
+        var resultado = await MediatorHandler!.EnviarComando(atualizarUsuarioCommand);
         
         return !resultado.Sucesso ? RetornaErro(resultado.CommandNotifications) : NoContent(); 
     }

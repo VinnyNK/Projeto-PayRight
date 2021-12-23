@@ -9,7 +9,7 @@ public static class BancoDeDadosConfiguration
     {
         var serverVersion = new MySqlServerVersion(new Version(10, 6, 5));
 
-        services.AddDbContext<ContextoDbLeitura>(_ => _.UseMySql(configuration.GetConnectionString("DbConnectionLeitura"), serverVersion));
+        services.AddDbContext<ContextoDbLeitura>(_ => _.UseMySql(configuration.GetConnectionString("DbConnection"), serverVersion));
         
         return services;
     }
