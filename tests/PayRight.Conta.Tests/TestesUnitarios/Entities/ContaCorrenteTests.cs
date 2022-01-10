@@ -64,16 +64,16 @@ public class ContaCorrenteTests
 
     [Trait("Entity", "ContaCorrente")]
     [Theory]
-    [InlineData(200.00, 100.00, 50.00, 50.00)]
-    [InlineData(333.00, 100.00, 233.00)]
-    [InlineData(502.2, 125.00, 377.2)]
-    [InlineData(100.01, 100.00, 0.01)]
-    public void DeveRetornarValorEsperadoSomarSaldo(decimal valorEsperado, params double[] valorSoma)
+    [InlineData(200, "100", "50", "50")]
+    [InlineData(333, "100", "233")]
+    [InlineData(502.2, "125", "377,2")]
+    [InlineData(100.01, "100", "0,01")]
+    public void DeveRetornarValorEsperadoSomarSaldo(decimal valorEsperado, params string[] valorSoma)
     {
         // Arrange
         var contaCorrente = _contaCorrenteFixture.GerarNovoContaCorrente();
         foreach (var valor in valorSoma)
-            contaCorrente.SomarSaldo((decimal) valor);
+            contaCorrente.SomarSaldo(decimal.Parse(valor));
 
         // Act
         var resultado = contaCorrente.Saldo;
@@ -84,18 +84,18 @@ public class ContaCorrenteTests
     
     [Trait("Entity", "ContaCorrente")]
     [Theory]
-    [InlineData(0, 200.00, 100.00, 50.00, 50.00)]
-    [InlineData(133, 466.00, 233.00, 100.00)]
-    [InlineData(252.2, 754.4, 377.2, 125.00)]
-    [InlineData(99.99, 200.00, 100.00, 0.01)]
-    [InlineData(-30, 60.00, 30.00, 60.00)]
-    public void DeveRetornarValorEsperadoSubtrairSaldo(decimal valorEsperado, decimal saldoInicial, params double[] valorSoma)
+    [InlineData(0, 200, "100", "50", "50")]
+    [InlineData(133, 466, "233", "100")]
+    [InlineData(252.2, 754.4, "377,2", "125")]
+    [InlineData(99.99, 200, "100", "0,01")]
+    [InlineData(-30, 60, "30", "60")]
+    public void DeveRetornarValorEsperadoSubtrairSaldo(decimal valorEsperado, decimal saldoInicial, params string[] valorSoma)
     {
         // Arrange
         var contaCorrente = _contaCorrenteFixture.GerarNovoContaCorrente();
         contaCorrente.SomarSaldo(saldoInicial);
         foreach (var valor in valorSoma)
-            contaCorrente.SubtrairSaldo((decimal) valor);
+            contaCorrente.SubtrairSaldo(decimal.Parse(valor));
 
         // Act
         var resultado = contaCorrente.Saldo;
