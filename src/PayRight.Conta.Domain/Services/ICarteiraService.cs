@@ -1,4 +1,4 @@
-﻿using PayRight.Conta.Domain.Models;
+﻿using PayRight.Conta.Domain.Messages;
 
 namespace PayRight.Conta.Domain.Services;
 

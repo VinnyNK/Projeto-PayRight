@@ -1,7 +1,8 @@
 ﻿using Confluent.Kafka;
+using Flunt.Notifications;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using PayRight.Conta.Domain.Models;
+using PayRight.Conta.Domain.Messages;
 using PayRight.Conta.Domain.Services;
 using PayRight.Shared.Consumers;
 
@@ -28,13 +29,22 @@ public class UsuarioCriadoConsumer : Consumer
                 var consumeResult = consumer.Consume(stoppingToken);
                 var message = consumeResult.Message.Value;
                 var usuario = JsonConvert.DeserializeObject<UsuarioMessage>(message);
+                
+                usuario.Validar();
 
-                var resultado = await _carteiraService.CriarCarteiraNovoUsuarioCriado(usuario);
+                if (usuario.IsValid)
+                {
+                    var resultado = await _carteiraService.CriarCarteiraNovoUsuarioCriado(usuario);
 
-                if (resultado)
-                    _logger.LogInformation($"{message}");
+                    if (resultado)
+                        _logger.LogInformation($"{message}");
+                    else
+                        _logger.LogWarning($"{message}");                    
+                }
                 else
-                    _logger.LogWarning($"{message}");
+                {
+                    _logger.LogWarning($"Mensagem com problemas. Notificações: {ListarNotificacoes(usuario.Notifications)}");
+                }
             }
 
             consumer.Close();
@@ -47,5 +57,10 @@ public class UsuarioCriadoConsumer : Consumer
         {
             _logger.LogError($"Exceção: {e.GetType().FullName} Mensagem: {e.Message}");
         }
+    }
+
+    private string ListarNotificacoes(IEnumerable<Notification>? notifications)
+    {
+        return notifications!.Aggregate("", (current, notification) => current + $"{notification.Key}: {notification.Message} \n");
     }
 }

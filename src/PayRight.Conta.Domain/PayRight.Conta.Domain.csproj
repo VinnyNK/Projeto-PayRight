@@ -7,12 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Commands" />
-      <Folder Include="Handlers" />
-      <Folder Include="Queries" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Flunt" Version="2.0.5" />
     </ItemGroup>
 

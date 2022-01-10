@@ -1,5 +1,5 @@
 ﻿using PayRight.Conta.Domain.Entities;
-using PayRight.Conta.Domain.Models;
+using PayRight.Conta.Domain.Messages;
 using PayRight.Conta.Domain.Repositories;
 
 namespace PayRight.Conta.Domain.Services;
