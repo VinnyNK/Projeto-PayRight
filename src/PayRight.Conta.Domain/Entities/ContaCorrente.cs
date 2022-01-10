@@ -1,6 +1,4 @@
 ﻿using Flunt.Validations;
-using PayRight.Conta.Domain.ValueObjects;
-using PayRight.Shared.Utils.Extentions;
 
 namespace PayRight.Conta.Domain.Entities;
 

@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PayRight.Cadastro.Domain\PayRight.Cadastro.Domain.csproj" />
       <ProjectReference Include="..\PayRight.Shared\PayRight.Shared.csproj" />
     </ItemGroup>
 

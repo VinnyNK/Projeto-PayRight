@@ -1,6 +1,10 @@
-﻿namespace PayRight.Conta.Domain.Repositories;
+﻿using PayRight.Conta.Domain.Entities;
 
-public interface ICarteiraRepository
+namespace PayRight.Conta.Domain.Repositories;
+
+public interface ICarteiraEscritaRepository
 {
+    Task CriarNovaCarteira(Carteira carteira);
     
+    Task<bool> Commit();
 }
