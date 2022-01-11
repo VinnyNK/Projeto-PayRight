@@ -17,7 +17,7 @@ jobs:
 #            curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
 #            horusec start -p="./src/" -e="true"
       - name: Branch Name
-        run: echo "Source: $GITHUB_HEAD_REF"
+        run:  echo "Source: $GITHUB_HEAD_REF"
         
       - name: Setup .NET ${{ env.DOTNET6_VERSION }} Environment
         uses: actions/setup-dotnet@v1
