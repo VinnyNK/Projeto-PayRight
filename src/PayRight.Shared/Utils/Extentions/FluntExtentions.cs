@@ -31,4 +31,12 @@ public static class FluntExtentions
 
         return contract;
     }
+
+    public static Contract<T> IsGuidNotEmpty<T>(this Contract<T> contract, Guid guid, string key, string message)
+    {
+        if (guid == Guid.Empty)
+            contract.AddNotification(key, message);
+
+        return contract;
+    }
 }

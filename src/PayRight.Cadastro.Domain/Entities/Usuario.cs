@@ -24,7 +24,9 @@ public class Usuario : Entity
 
     public DateTime UltimaAtualizacaoEm { get; private set; }
 
+#pragma warning disable CS8618
     protected Usuario() {}
+#pragma warning restore CS8618
     
     public Usuario(NomeCompleto nomeCompleto, Email nomeUsuario, Documento documento, string senha, string confirmacaoSenha)
     {

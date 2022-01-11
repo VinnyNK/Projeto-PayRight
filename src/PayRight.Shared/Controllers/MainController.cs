@@ -40,9 +40,9 @@ public abstract class MainController : ControllerBase
         return ValidationFilter.ControllerBadRequestResponse(ModelState);
     }
 
-    protected Guid? BuscaIdDoUsuarioAutenticado()
+    protected Guid BuscaIdDoUsuarioAutenticado()
     {
-        return Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(_ => _.Type == ClaimTypes.NameIdentifier)?.Value, out var id) ? id : null;
+        return Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(_ => _.Type == ClaimTypes.NameIdentifier)?.Value, out var id) ? id : Guid.Empty;
     }
 
     protected string? BuscaEmailDoUsuarioAutenticado()
