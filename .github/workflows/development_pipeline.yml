@@ -10,17 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout GitHub Action'
-        uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
-          ref: ${{ GITHUB.HEAD_REF }}
+        uses: actions/checkout@v2
 
 #      - name: 'Running Horusec'
 #        run: |
 #            curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
 #            horusec start -p="./src/" -e="true"
-      - name: Source Branch Name
-        run:  echo ${{ GITHUB.HEAD_REF }}
         
       - name: Setup .NET ${{ env.DOTNET6_VERSION }} Environment
         uses: actions/setup-dotnet@v1
@@ -34,6 +29,5 @@ jobs:
         run: dotnet build --no-restore
         
       - name: Test
-        run: dotnet test --verbosity normal
-        #run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-build --verbosity normal
          
