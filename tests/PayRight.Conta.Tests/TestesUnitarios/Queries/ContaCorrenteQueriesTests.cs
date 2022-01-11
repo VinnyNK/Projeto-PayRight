@@ -36,7 +36,7 @@ public class ContaCorrenteQueriesTests
         var resultado = await query.BuscarContasCorrentes(idUsuario);
 
         // Assert
-        Assert.Equal(1, resultado.Count());
+        Assert.Single(resultado);
     }
 
     [Trait("Queries", "ContaCorrente")]
@@ -53,6 +53,6 @@ public class ContaCorrenteQueriesTests
         var resultado = await query.BuscarContasCorrentes(Guid.NewGuid());
 
         // Assert
-        Assert.Equal(0, resultado.Count());
+        Assert.Empty(resultado);
     }
 }

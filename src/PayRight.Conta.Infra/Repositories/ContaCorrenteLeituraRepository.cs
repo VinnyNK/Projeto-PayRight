@@ -7,7 +7,7 @@ namespace PayRight.Conta.Infra.Repositories;
 
 public class ContaCorrenteLeituraRepository : Repository<ContaCorrente>, IContaCorrenteLeituraRepository
 {
-    public ContaCorrenteLeituraRepository(ContextoDb db) : base(db)
+    public ContaCorrenteLeituraRepository(ContextoDbLeitura db) : base(db)
     {
     }
 
@@ -20,5 +20,10 @@ public class ContaCorrenteLeituraRepository : Repository<ContaCorrente>, IContaC
     public async Task<IEnumerable<ContaCorrente>> BuscarContasCorrente(Guid usuarioId)
     {
         return await DbSet.Where(_ => _.UsuarioId == usuarioId).AsNoTracking().ToListAsync();
+    }
+
+    public async Task<ContaCorrente?> BuscaContaCorrente(Guid usuarioId, Guid contaCorrenteId)
+    {
+        return await DbSet.FirstOrDefaultAsync(_ => _.Id == contaCorrenteId && _.UsuarioId == usuarioId);
     }
 }

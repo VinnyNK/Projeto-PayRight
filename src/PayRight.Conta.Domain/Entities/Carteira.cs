@@ -13,6 +13,9 @@ public class Carteira : Conta
         Validar();
     }
     
+    protected Carteira() : base(Guid.Empty, "", null)
+    { }
+    
     public void SomarSaldo(decimal valor)
     {
         Saldo += valor;

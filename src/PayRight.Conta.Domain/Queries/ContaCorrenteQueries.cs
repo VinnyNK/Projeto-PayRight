@@ -25,4 +25,18 @@ public class ContaCorrenteQueries : IContaCorrenteQueries
             Saldo = _.Saldo
         });
     }
+
+    public async Task<ContaCorrenteDTO?> BuscaContaCorrente(Guid usuarioId, Guid contaCorrenteId)
+    {
+        var conta = await _contaCorrenteLeituraRepository.BuscaContaCorrente(usuarioId, contaCorrenteId);
+
+        return new ContaCorrenteDTO()
+        {
+            Id = conta!.Id,
+            Nome = conta.NomeConta.Nome,
+            Apelido = conta.NomeConta.Apelido,
+            Ativo = conta.Ativo,
+            Saldo = conta.Saldo
+        };
+    }
 }
