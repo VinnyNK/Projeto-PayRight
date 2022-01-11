@@ -12,6 +12,9 @@ public class ContaCorrente : Conta
         
         Validar();
     }
+    
+    protected ContaCorrente() : base(Guid.Empty, "", null)
+    { }
 
     public void SomarSaldo(decimal valor)
     {

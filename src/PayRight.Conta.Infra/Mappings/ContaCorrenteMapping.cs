@@ -18,6 +18,8 @@ public class ContaCorrenteMapping : IEntityTypeConfiguration<ContaCorrente>
             vo.Property(_ => _.Apelido).HasColumnName("apelido").HasMaxLength(NomeConta.MAX_CARACTERES_APELIDO);
             vo.Ignore(_ => _.Notifications);
         });
+
+        builder.HasIndex(_ => _.UsuarioId).HasDatabaseName("idx_usuario_id");
         
         builder.Property(_ => _.Ativo).IsRequired().HasDefaultValue(true);
         builder.Property(_ => _.Saldo).IsRequired().HasPrecision(13, 2).HasDefaultValue(0.00);

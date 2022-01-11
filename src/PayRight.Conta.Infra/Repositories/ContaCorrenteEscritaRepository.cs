@@ -6,7 +6,7 @@ namespace PayRight.Conta.Infra.Repositories;
 
 public class ContaCorrenteEscritaRepository : Repository<ContaCorrente>, IContaCorrenteEscritaRepository
 {
-    public ContaCorrenteEscritaRepository(ContextoDb db) : base(db)
+    public ContaCorrenteEscritaRepository(ContextoDbEscrita db) : base(db)
     {
     }
 
