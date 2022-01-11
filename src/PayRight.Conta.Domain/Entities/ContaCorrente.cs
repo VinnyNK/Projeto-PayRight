@@ -20,12 +20,14 @@ public class ContaCorrente : Conta
     {
         Saldo += valor;
         Validar();
+        DadoAtualizado();
     }
 
     public void SubtrairSaldo(decimal valor)
     {
         Saldo -= valor;
         Validar();
+        DadoAtualizado();
     }
 
     public sealed override void Validar()
