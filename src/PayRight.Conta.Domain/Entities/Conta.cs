@@ -25,15 +25,24 @@ public abstract class Conta : Entity
     {
         NomeConta = nomeConta;
         Validar();
+        DadoAtualizado();
     }
 
     public void DesativarConta()
     {
         Ativo = false;
+        DadoAtualizado();
     }
     
     public void AtivarConta()
     {
         Ativo = true;
+        DadoAtualizado();
+    }
+
+    protected void DadoAtualizado()
+    {
+        if (IsValid)
+            UltimaAtualizacaoEm = DateTime.Now;
     }
 }
