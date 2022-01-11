@@ -33,16 +33,16 @@ public class CarteiraTests
     
     [Trait("Entity", "Carteira")]
     [Theory]
-    [InlineData(200, "100", "50", "50")]
-    [InlineData(333, "100", "233")]
-    [InlineData(502.2, "125", "377,2")]
-    [InlineData(100.01, "100", "0,01")]
-    public void DeveRetornarValorEsperadoSomarSaldo(decimal valorEsperado, params string[] valorSoma)
+    [InlineData(200.00, 100.00, 50.00, 50.00)]
+    [InlineData(333.00, 100.00, 233.00)]
+    [InlineData(502.2, 125.00, 377.2)]
+    [InlineData(100.01, 100.00, 0.01)]
+    public void DeveRetornarValorEsperadoSomarSaldo(decimal valorEsperado, params double[] valorSoma)
     {
         // Arrange
         var carteira = _carteiraFixture.GerarNovaCarteira();
         foreach (var valor in valorSoma)
-            carteira.SomarSaldo(decimal.Parse(valor));
+            carteira.SomarSaldo((decimal) valor);
 
         // Act
         var resultado = carteira.Saldo;
@@ -53,17 +53,17 @@ public class CarteiraTests
     
     [Trait("Entity", "Carteira")]
     [Theory]
-    [InlineData(0, 200, "100", "50", "50")]
-    [InlineData(133, 466, "233", "100")]
-    [InlineData(252.2, 754.4, "377,2", "125")]
-    [InlineData(99.99, 200, "100", "0,01")]
-    public void DeveRetornarValorEsperadoSubtrairSaldo(decimal valorEsperado, decimal saldoInicial, params string[] valorSoma)
+    [InlineData(0.00, 200.00, 100.00, 50.00, 50.00)]
+    [InlineData(133.00, 466.00, 233.00, 100.00)]
+    [InlineData(252.2, 754.4, 377.2, 125.00)]
+    [InlineData(99.99, 200.00, 100.00, 0.01)]
+    public void DeveRetornarValorEsperadoSubtrairSaldo(decimal valorEsperado, decimal saldoInicial, params double[] valorSoma)
     {
         // Arrange
         var contaCorrente = _carteiraFixture.GerarNovaCarteira();
         contaCorrente.SomarSaldo(saldoInicial);
         foreach (var valor in valorSoma)
-            contaCorrente.SubtrairSaldo(decimal.Parse(valor));
+            contaCorrente.SubtrairSaldo((decimal) valor);
 
         // Act
         var resultado = contaCorrente.Saldo;
@@ -74,17 +74,17 @@ public class CarteiraTests
 
     [Trait("Entity", "Carteira")]
     [Theory]
-    [InlineData(100, "100", "50", "50")]
-    [InlineData(50, "233", "100")]
-    [InlineData(500.4, "377,2", "125")]
-    [InlineData(10, "100", "0,01")]
-    public void DeveRetornarErroSaldoNegativoCarteira(decimal saldoInicial, params string[] valores)
+    [InlineData(100.00, 100.00, 50.00, 50.00)]
+    [InlineData(50.00, 233.00, 100.00)]
+    [InlineData(500.4, 377.2, 125.00)]
+    [InlineData(10.00, 100.00, 0.01)]
+    public void DeveRetornarErroSaldoNegativoCarteira(decimal saldoInicial, params double[] valores)
     {
         // Arrange
         var contaCorrente = _carteiraFixture.GerarNovaCarteira();
         contaCorrente.SomarSaldo(saldoInicial);
         foreach (var valor in valores)
-            contaCorrente.SubtrairSaldo(decimal.Parse(valor));
+            contaCorrente.SubtrairSaldo((decimal) valor);
 
         // Act
         var resultado = contaCorrente.IsValid;
