@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PayRight.Conta.Domain.Entities;
+﻿using PayRight.Conta.Domain.Entities;
 using PayRight.Conta.Domain.Repositories;
 using PayRight.Conta.Infra.Contexts;
 
