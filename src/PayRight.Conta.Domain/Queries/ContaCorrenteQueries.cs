@@ -26,9 +26,9 @@ public class ContaCorrenteQueries : IContaCorrenteQueries
         });
     }
 
-    public async Task<ContaCorrenteDTO?> BuscaContaCorrente(Guid usuarioId, Guid contaCorrenteId)
+    public async Task<ContaCorrenteDTO?> BuscarContaCorrente(Guid usuarioId, Guid contaCorrenteId)
     {
-        var conta = await _contaCorrenteLeituraRepository.BuscaContaCorrente(usuarioId, contaCorrenteId);
+        var conta = await _contaCorrenteLeituraRepository.BuscarContaCorrente(usuarioId, contaCorrenteId);
 
         return new ContaCorrenteDTO()
         {

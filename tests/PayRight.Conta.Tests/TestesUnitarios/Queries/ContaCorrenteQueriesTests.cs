@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Moq;
 using PayRight.Conta.Domain.Entities;
 using PayRight.Conta.Domain.Queries;
+using PayRight.Conta.Domain.Queries.DTOs;
 using PayRight.Conta.Domain.Repositories;
 using PayRight.Conta.Tests.TestesUnitarios.Entities.Fixtures;
 using Xunit;
@@ -54,5 +55,25 @@ public class ContaCorrenteQueriesTests
 
         // Assert
         Assert.Empty(resultado);
+    }
+
+    [Trait("Queries", "ContaCorrente")]
+    [Fact]
+    public async Task DeveRetornarContaCorrenteEspecificaDoUsuario()
+    {
+        // Arrange
+        var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
+        var query = new ContaCorrenteQueries(leituraRepository.Object);
+        var usuarioId = Guid.NewGuid();
+        var contaCorrenteId = Guid.NewGuid();
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(usuarioId, contaCorrenteId))
+            .Returns(Task.FromResult(new ContaCorrente(usuarioId, "Nome Conta", null))!);
+
+        // Act
+        var resultado = await query.BuscarContaCorrente(usuarioId, contaCorrenteId);
+
+        // Assert
+        Assert.IsType<ContaCorrenteDTO>(resultado);
+        Assert.NotNull(resultado);
     }
 }

@@ -31,7 +31,7 @@ public class SaldoContaCorrenteHandlerTests
         var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
         var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
         var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
-        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId))
             .Returns(Task.FromResult(new ContaCorrente(command.UsuarioId, "Conta Teste", null))!);
         escritaRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
         
@@ -53,7 +53,7 @@ public class SaldoContaCorrenteHandlerTests
         var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
         var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
         var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
-        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId))
             .Returns(Task.FromResult<ContaCorrente>(null!)!);
 
         // Act
@@ -93,7 +93,7 @@ public class SaldoContaCorrenteHandlerTests
         var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
         var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
         var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
-        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId))
             .Returns(Task.FromResult(new ContaCorrente(command.UsuarioId, "", null))!);
 
         // Act
@@ -114,7 +114,7 @@ public class SaldoContaCorrenteHandlerTests
         var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
         var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
         var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
-        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId))
             .Returns(Task.FromResult(new ContaCorrente(command.UsuarioId, "Conta Teste", null))!);
         escritaRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(false));
         
@@ -136,7 +136,7 @@ public class SaldoContaCorrenteHandlerTests
         var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
         var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
         var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
-        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId))
             .Returns(Task.FromResult(new ContaCorrente(command.UsuarioId, "Conta Teste", null))!);
         escritaRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
         
@@ -158,7 +158,7 @@ public class SaldoContaCorrenteHandlerTests
         var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
         var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
         var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
-        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId))
             .Returns(Task.FromResult<ContaCorrente>(null!)!);
 
         // Act
@@ -198,7 +198,7 @@ public class SaldoContaCorrenteHandlerTests
         var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
         var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
         var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
-        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId))
             .Returns(Task.FromResult(new ContaCorrente(command.UsuarioId, "", null))!);
 
         // Act
@@ -219,7 +219,7 @@ public class SaldoContaCorrenteHandlerTests
         var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
         var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
         var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
-        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId))
             .Returns(Task.FromResult(new ContaCorrente(command.UsuarioId, "Conta Teste", null))!);
         escritaRepository.Setup(_ => _.Commit()).Returns(Task.FromResult(false));
         
@@ -241,7 +241,7 @@ public class SaldoContaCorrenteHandlerTests
         var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
         var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
         var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
-        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId))
             .Returns(Task.FromResult(new ContaCorrente(command.UsuarioId, "", null))!);
 
         // Act
@@ -262,7 +262,7 @@ public class SaldoContaCorrenteHandlerTests
         var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
         var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
         var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
-        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+        leituraRepository.Setup(_ => _.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId))
             .Returns(Task.FromResult(new ContaCorrente(command.UsuarioId, "", null))!);
 
         // Act

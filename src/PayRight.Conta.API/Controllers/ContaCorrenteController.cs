@@ -35,7 +35,7 @@ public class ContasCorrentesController : MainController
         var usuarioId = BuscaIdDoUsuarioAutenticado();
         if (usuarioId == Guid.Empty) return Unauthorized();
 
-        var contaCorrente = await _contaCorrenteQueries.BuscaContaCorrente(usuarioId, id);
+        var contaCorrente = await _contaCorrenteQueries.BuscarContaCorrente(usuarioId, id);
 
         if (contaCorrente == null)
             return NotFound();

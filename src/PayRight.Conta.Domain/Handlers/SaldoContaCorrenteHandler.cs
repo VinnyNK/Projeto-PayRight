@@ -27,7 +27,7 @@ public class SaldoContaCorrenteHandler : Notifiable<Notification>, IHandler<Soma
                 Notifications);
         }
 
-        var conta = await _contaCorrenteLeituraRepository.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId);
+        var conta = await _contaCorrenteLeituraRepository.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId);
 
         if (conta == null)
         {
@@ -61,7 +61,7 @@ public class SaldoContaCorrenteHandler : Notifiable<Notification>, IHandler<Soma
                 Notifications);
         }
 
-        var conta = await _contaCorrenteLeituraRepository.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId);
+        var conta = await _contaCorrenteLeituraRepository.BuscarContaCorrente(command.UsuarioId, command.ContaCorrenteId);
 
         if (conta == null)
         {
