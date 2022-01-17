@@ -231,4 +231,46 @@ public class SaldoContaCorrenteHandlerTests
         Assert.False(commandResult.Sucesso);
         Assert.True(resultado);
     }
+
+    [Trait("Handler", "SaldoContaCorrente")]
+    [Fact]
+    public async Task DeveRetornarErroSomarSaldoContaCorrenteInvalida()
+    {
+        // Arrange
+        var command = _somarSaldoContaCorrenteCommandFixture.GerarCommand();
+        var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
+        var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
+        var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
+        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+            .Returns(Task.FromResult(new ContaCorrente(command.UsuarioId, "", null))!);
+
+        // Act
+        var commandResult = await handler.Handle(command, CancellationToken.None);
+        var resultado = handler.IsValid;
+        
+        // Assert
+        Assert.False(commandResult.Sucesso);
+        Assert.False(resultado);
+    }
+    
+    [Trait("Handler", "SaldoContaCorrente")]
+    [Fact]
+    public async Task DeveRetornarErroSubtrairSaldoContaCorrenteInvalida()
+    {
+        // Arrange
+        var command = _subtrairSaldoContaCorrenteCommandFixture.GerarCommand();
+        var escritaRepository = new Mock<IContaCorrenteEscritaRepository>();
+        var leituraRepository = new Mock<IContaCorrenteLeituraRepository>();
+        var handler = new SaldoContaCorrenteHandler(escritaRepository.Object, leituraRepository.Object);
+        leituraRepository.Setup(_ => _.BuscaContaCorrente(command.UsuarioId, command.ContaCorrenteId))
+            .Returns(Task.FromResult(new ContaCorrente(command.UsuarioId, "", null))!);
+
+        // Act
+        var commandResult = await handler.Handle(command, CancellationToken.None);
+        var resultado = handler.IsValid;
+        
+        // Assert
+        Assert.False(commandResult.Sucesso);
+        Assert.False(resultado);
+    }
 }
