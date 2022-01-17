@@ -15,6 +15,12 @@ public class ContaCorrenteEscritaRepository : Repository<ContaCorrente>, IContaC
         await DbSet.AddAsync(contaCorrente);
     }
 
+    public Task AtualizarContaCorrente(ContaCorrente contaCorrente)
+    {
+        DbSet.Update(contaCorrente);
+        return Task.CompletedTask;
+    }
+
     public async Task<bool> Commit()
     {
         return await Db.SaveChangesAsync() != 0;

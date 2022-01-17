@@ -22,7 +22,7 @@ public class ContaCorrenteLeituraRepository : Repository<ContaCorrente>, IContaC
         return await DbSet.Where(_ => _.UsuarioId == usuarioId).AsNoTracking().ToListAsync();
     }
 
-    public async Task<ContaCorrente?> BuscaContaCorrente(Guid usuarioId, Guid contaCorrenteId)
+    public async Task<ContaCorrente?> BuscarContaCorrente(Guid usuarioId, Guid contaCorrenteId)
     {
         return await DbSet.FirstOrDefaultAsync(_ => _.Id == contaCorrenteId && _.UsuarioId == usuarioId);
     }
