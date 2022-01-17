@@ -1,0 +1,122 @@
+﻿version: "3.1"
+
+services: 
+  autenticacao-api:
+    container_name: ${COMPOSE_PROJECT_NAME}_Autenticacao
+    build:
+      context: ../src
+      dockerfile: ./PayRight.Autenticacao.API/Dockerfile
+    networks: 
+      - internal-network
+      - mysql
+    ports:
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5001;http://+5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=gKdT7FPJZssHLsxGUnjbA4a6mxkot7HCif6a44opwvjfXgET6r9nEtQrSKC2YzSFEeJE
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/PayRight.Autenticacao.pfx
+      - ConnectionStrings__DbConnection=Server=mysql-leitura;Database=PayRight-Cadastro;Uid=root;Pwd=my_root_password;
+      - JWT__ValidAudience=https://localhost
+      - JWT__ValidIssuer=PayRightAuthenticator
+      - JWT__Secret=jLDtXMHGPwoXFuLPeB87N4
+      - JWT__ExpiresIn=30
+      - JWT__ApplicationName=PayRight
+    volumes:
+      - ./certs:/https:ro
+    
+  cadastro-api:
+    container_name: ${COMPOSE_PROJECT_NAME}_Cadastro
+    build:
+      context: ../src
+      dockerfile: ./PayRight.Cadastro.API/Dockerfile
+    networks: 
+      - internal-network
+      - mysql
+    ports:
+      - "5011:5011"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5011;http://+5010
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=5qZKZvtWPdHnfcLxWBBHXewJiKVBQ8YQiJzL6TaC4K5ufd6TzcgCHSenAKLa6tvLUczv
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/PayRight.Cadastro.pfx
+      - ConnectionStrings__DbConnectionLeitura=Server=mysql-leitura;Database=PayRight-Cadastro;Uid=root;Pwd=my_root_password;
+      - ConnectionStrings__DbConnectionEscrita=Server=mysql-escrita;Database=PayRight-Cadastro;Uid=root;Pwd=my_root_password;
+      - JWT__ValidAudience=https://localhost
+      - JWT__ValidIssuer=PayRightAuthenticator
+      - JWT__Secret=jLDtXMHGPwoXFuLPeB87N4
+      - JWT__ExpiresIn=30
+      - JWT__ApplicationName=PayRight
+    volumes:
+      - ./certs:/https:ro 
+
+  
+  conta-api:
+    container_name: ${COMPOSE_PROJECT_NAME}_Conta
+    build:
+      context: ../src
+      dockerfile: ./PayRight.Conta.API/Dockerfile
+    networks: 
+      - internal-network
+      - mysql
+    ports:
+      - "5021:5021"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5021;http://+5020
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=ZSYaPNAu7PgPNyY5mQSrRVbr6fo6rM6FYPd3GBaZeQAVSGepVsKreR4W3vPHkyhtiT8A
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/PayRight.Conta.pfx
+      - ConnectionStrings__DbConnectionLeitura=Server=mysql-leitura;Database=PayRight-Conta;Uid=root;Pwd=my_root_password;
+      - ConnectionStrings__DbConnectionEscrita=Server=mysql-escrita;Database=PayRight-Conta;Uid=root;Pwd=my_root_password;
+      - JWT__ValidAudience=https://localhost
+      - JWT__ValidIssuer=PayRightAuthenticator
+      - JWT__Secret=jLDtXMHGPwoXFuLPeB87N4
+      - JWT__ExpiresIn=30
+      - JWT__ApplicationName=PayRight
+    volumes:
+      - ./certs:/https:ro
+        
+  mysql-escrita:
+    image: bitnami/mariadb-galera:latest
+    container_name: ${COMPOSE_PROJECT_NAME}_MySQL_Escrita
+    ports:
+      - "3306:3306"
+    networks:
+      - mysql
+    environment:
+      - MARIADB_GALERA_CLUSTER_BOOTSTRAP=yes
+      - MARIADB_GALERA_MARIABACKUP_USER=my_mariabackup_user
+      - MARIADB_GALERA_MARIABACKUP_PASSWORD=my_mariabackup_password
+      - MARIADB_ROOT_PASSWORD=my_root_password
+      - MARIADB_USER=my_user
+      - MARIADB_PASSWORD=my_password
+      - MARIADB_REPLICATION_USER=my_replication_user
+      - MARIADB_REPLICATION_PASSWORD=my_replication_password
+    volumes: 
+      - ./sql:/docker-entrypoint-initdb.d
+  
+  mysql-leitura:
+    image: bitnami/mariadb-galera:latest
+    container_name: ${COMPOSE_PROJECT_NAME}_MySQL_Leitura
+    ports:
+      - "3307:3306"
+    networks:
+      - mysql
+    links:
+      - mysql-escrita
+    environment:
+      - MARIADB_GALERA_CLUSTER_ADDRESS=gcomm://mysql-escrita:4567,0.0.0.0:4567
+      - MARIADB_GALERA_MARIABACKUP_USER=my_mariabackup_user
+      - MARIADB_GALERA_MARIABACKUP_PASSWORD=my_mariabackup_password
+      - MARIADB_ROOT_PASSWORD=my_root_password
+      - MARIADB_REPLICATION_USER=my_replication_user
+      - MARIADB_REPLICATION_PASSWORD=my_replication_password
+    depends_on: 
+      - mysql-escrita
+
+networks:
+  internal-network:
+    driver: bridge
+  mysql:
+    driver: bridge
+    
