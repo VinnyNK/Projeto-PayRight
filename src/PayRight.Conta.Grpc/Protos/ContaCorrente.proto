@@ -1,0 +1,16 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "PayRight.Conta.Grpc.Protos";
+
+service ContaCorrenteProtoService {
+  rpc ValidarContaCorrente(ValidarContaCorrenteRequest) returns (ValidarContaCorrenteResponse);
+}
+
+message ValidarContaCorrenteRequest {
+  string contaCorrenteId = 1;
+  string usuarioId = 2;
+}
+
+message ValidarContaCorrenteResponse {
+  bool EhValido = 1;
+}
