@@ -24,7 +24,7 @@ public class UsuariosController : MainController
     public async Task<IActionResult> BuscaInformacaoUsuario()
     {
         var id = BuscaIdDoUsuarioAutenticado();
-        if (id == null) { return Unauthorized(); }
+        if (id == Guid.Empty) { return Unauthorized(); }
         var usuario = await _usuarioQueries.BuscaInfoUsuario((Guid) id);
 
         if (usuario == null)
@@ -37,7 +37,7 @@ public class UsuariosController : MainController
     public async Task<IActionResult> BuscaInformacaoUsuarioCompleto()
     {
         var id = BuscaIdDoUsuarioAutenticado();
-        if (id == null) { return Unauthorized(); }
+        if (id == Guid.Empty) { return Unauthorized(); }
         var usuario = await _usuarioQueries.BuscaUsuarioCompleto((Guid) id);
 
         if (usuario == null)
@@ -64,7 +64,7 @@ public class UsuariosController : MainController
     public async Task<IActionResult> AtualizarUsuario(AtualizarUsuarioRequestDto atualizarUsuarioRequestDto)
     {
         var id = BuscaIdDoUsuarioAutenticado();
-        if (id == null) { return Unauthorized(); }
+        if (id == Guid.Empty) { return Unauthorized(); }
         var atualizarUsuarioCommand = Mapper!.Map<AtualizarUsuarioCommand>(atualizarUsuarioRequestDto);
         atualizarUsuarioCommand.Id = (Guid) id;
         

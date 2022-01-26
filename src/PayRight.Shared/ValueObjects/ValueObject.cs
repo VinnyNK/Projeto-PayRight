@@ -4,9 +4,10 @@ namespace PayRight.Shared.ValueObjects;
 
 public abstract class ValueObject : Notifiable<Notification>
 {
-
-    public ValueObject()
+    protected ValueObject()
     {
     }
+
+    public abstract void Validar();
 
 }

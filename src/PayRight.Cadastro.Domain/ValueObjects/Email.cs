@@ -16,6 +16,11 @@ public class Email : ValueObject
     {
         Endereco = endereco;
 
+        Validar();
+    }
+
+    public sealed override void Validar()
+    {
         AddNotifications(
             new Contract<Email>()
                 .Requires()
