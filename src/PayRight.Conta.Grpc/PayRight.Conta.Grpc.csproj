@@ -14,10 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Configurations" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="Protos\ContaCorrente.proto" />
       <Protobuf Include="Protos\ContaCorrente.proto" />
     </ItemGroup>
