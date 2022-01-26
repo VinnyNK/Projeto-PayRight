@@ -15,12 +15,14 @@ public class ContaCorrenteRepository : IContaCorrenteRepository
 
     public async Task<bool> ExisteContaCorrente(Guid contaCorrenteId, Guid usuarioId)
     {
-        const string query = "SELECT COUNT(C.\"ID\") FROM contas_correntes C WHERE C.\"ID\" = @ContaCorrenteId AND C.\"UsuarioId\" = @UsuarioId";
+        const string query = "SELECT COUNT(C.Id) FROM contas_correntes C WHERE C.Id = @ContaCorrenteId AND C.UsuarioId = @UsuarioId";
 
-        return await _dbConnection.QueryFirstOrDefaultAsync<bool>(query, new
+        var result = await _dbConnection.QueryFirstOrDefaultAsync<int>(query, new
         {
             ContaCorrenteId = contaCorrenteId,
             UsuarioId = usuarioId
         });
+
+        return result > 0;
     }
 }

@@ -18,7 +18,7 @@ public class ContaCorrenteService : ContaCorrenteProtoService.ContaCorrenteProto
     {
         return new ValidarContaCorrenteResponse()
         {
-            EhValido = await _contaCorrenteRepository.ExisteContaCorrente(Guid.Parse(request.ContaCorrenteId), Guid.Parse(request.ContaCorrenteId))
+            EhValido = await _contaCorrenteRepository.ExisteContaCorrente(Guid.Parse(request.ContaCorrenteId), Guid.Parse(request.UsuarioId))
         };
     }
 }
