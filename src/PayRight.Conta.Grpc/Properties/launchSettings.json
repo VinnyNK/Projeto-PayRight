@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "PayRight.Conta.Grpc": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:1001;https://localhost:1000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
