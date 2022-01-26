@@ -13,6 +13,8 @@ builder.Services.SwaggerService();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.AddGrpcServices(builder.Configuration);
+
 builder.Services.InjecaoDb(builder.Configuration);
 
 builder.Services.AddMvc(_ => _.Filters.Add(typeof(ValidationFilter)))
