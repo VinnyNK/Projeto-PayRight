@@ -17,6 +17,11 @@ public class Token : ValueObject
         ValidoAte = validoAte;
         CriadoEm = DateTime.Now;
         
+        Validar();
+    }
+
+    public sealed override void Validar()
+    {
         AddNotifications(
             new Contract<Token>()
                 .Requires()
@@ -25,7 +30,6 @@ public class Token : ValueObject
                 
                 .IsNotNull(ValidoAte, "Token.ValidoAte", "Deve ser informado data de validate do token")
                 .IsGreaterThan(ValidoAte, CriadoEm, "Token.ValidoAte", "Validade do token deve ser maior do que a sua criacao")
-            );
+        );
     }
-
 }

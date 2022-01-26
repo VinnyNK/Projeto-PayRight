@@ -16,12 +16,7 @@ public class Documento : ValueObject
         Numero = numero;
         TipoDocumento = tipoDocumento;
         
-        AddNotifications(
-            new Contract<Documento>()
-                .Requires()
-                .IsNotNullOrEmpty(Numero, $"{nameof(Documento)}.{nameof(Numero)}", "Numero do Documento deve ser preenchido")
-                .IsNotNull(TipoDocumento, $"{nameof(Documento)}.{nameof(TipoDocumento)}", "Tipo do Documento deve ser informado")
-                .IsTrue(ValidadorCpfCnpj(), $"{nameof(Documento)}.{nameof(Numero)}", "Numero do Documento esta invalido"));
+        Validar();
     }
 
     private bool ValidadorCpfCnpj()
@@ -29,5 +24,15 @@ public class Documento : ValueObject
         return TipoDocumento == TipoDocumento.CPF 
             ? CpfCnpjValidator.IsCpf(Numero) 
             : CpfCnpjValidator.IsCnpj(Numero);
+    }
+
+    public sealed override void Validar()
+    {
+        AddNotifications(
+            new Contract<Documento>()
+                .Requires()
+                .IsNotNullOrEmpty(Numero, $"{nameof(Documento)}.{nameof(Numero)}", "Numero do Documento deve ser preenchido")
+                .IsNotNull(TipoDocumento, $"{nameof(Documento)}.{nameof(TipoDocumento)}", "Tipo do Documento deve ser informado")
+                .IsTrue(ValidadorCpfCnpj(), $"{nameof(Documento)}.{nameof(Numero)}", "Numero do Documento esta invalido"));
     }
 }
