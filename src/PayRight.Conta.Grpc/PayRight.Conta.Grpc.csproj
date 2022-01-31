@@ -8,14 +8,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Dapper" Version="2.0.123" />
         <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Protos\ContaCorrente.proto" />
-      <Protobuf Include="Protos\ContaCorrente.proto" />
+      <Protobuf Include="Protos\ContaCorrente.proto" GrpcServices="server" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PayRight.Conta.Domain\PayRight.Conta.Domain.csproj" />
+      <ProjectReference Include="..\PayRight.Conta.Infra\PayRight.Conta.Infra.csproj" />
     </ItemGroup>
 
 </Project>
