@@ -25,12 +25,6 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   KEY `IX_usuarios_Id` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
-  `MigrationId` varchar(150) NOT NULL,
-  `ProductVersion` varchar(32) NOT NULL,
-  PRIMARY KEY (`MigrationId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE DATABASE IF NOT EXISTS `PayRight-Conta` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `PayRight-Conta`;
 
@@ -89,11 +83,6 @@ CREATE TABLE IF NOT EXISTS `extratos_contas_corrente` (
   KEY `IX_extratos_contas_corrente_Id` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
-  `MigrationId` varchar(150) NOT NULL,
-  `ProductVersion` varchar(32) NOT NULL,
-  PRIMARY KEY (`MigrationId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
