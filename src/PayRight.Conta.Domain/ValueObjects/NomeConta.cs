@@ -20,6 +20,11 @@ public class NomeConta : ValueObject
         Nome = nome;
         Apelido = apelido;
         
+        Validar();
+    }
+
+    public sealed override void Validar()
+    {
         AddNotifications(
             new Contract<NomeConta>()
                 .Requires()

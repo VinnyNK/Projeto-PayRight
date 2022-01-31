@@ -16,7 +16,7 @@ public class AutoMapperConfiguration : Profile
         CreateMap<ContaCorrenteRequest, CriarNovaContaCorrenteCommand>()
             .ConstructUsing(_ => new CriarNovaContaCorrenteCommand(
                 _.UsuarioId,
-                _.Nome,
+                _.Nome!,
                 _.Apelido,
                 _.SaldoInicial
                 ));

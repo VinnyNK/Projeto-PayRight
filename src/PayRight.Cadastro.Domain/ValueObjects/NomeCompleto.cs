@@ -17,6 +17,11 @@ public class NomeCompleto : ValueObject
         PrimeiroNome = primeiroNome;
         Sobrenome = sobrenome;
 
+        Validar();
+    }
+
+    public sealed override void Validar()
+    {
         AddNotifications(
             new Contract<NomeCompleto>()
                 .Requires()
