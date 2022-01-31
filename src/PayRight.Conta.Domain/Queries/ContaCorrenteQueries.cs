@@ -39,4 +39,9 @@ public class ContaCorrenteQueries : IContaCorrenteQueries
             Saldo = conta.Saldo
         };
     }
+
+    public async Task<bool> ValidaContaCorrenteComUsuario(Guid contaCorrenteId, Guid usuarioId)
+    {
+        return await _contaCorrenteLeituraRepository.ExisteContaCorrente(contaCorrenteId, usuarioId);
+    }
 }

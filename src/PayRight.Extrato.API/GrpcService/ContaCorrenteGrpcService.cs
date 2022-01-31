@@ -12,10 +12,35 @@ public class ContaCorrenteGrpcService : IContaCorrenteGrpcService
         _contaCorrenteProtoServiceClient = contaCorrenteProtoServiceClient;
     }
 
-    public async Task<ValidarContaCorrenteResponse> ValidarContaCorrente(Guid contaCorrenteId, Guid usuarioId)
+    public async Task<bool> ValidarContaCorrente(Guid contaCorrenteId, Guid usuarioId)
     {
         var request = new ValidarContaCorrenteRequest()
-            { ContaCorrenteId = contaCorrenteId.ToString(), UsuarioId = usuarioId.ToString()};
-        return await _contaCorrenteProtoServiceClient.ValidarContaCorrenteAsync(request);
+            { ContaCorrenteId = contaCorrenteId.ToString(), UsuarioId = usuarioId.ToString() };
+        
+        return (await _contaCorrenteProtoServiceClient.ValidarContaCorrenteAsync(request)).EhValido;
+    }
+
+    public async Task<bool> SomarSaldoContaCorrente(Guid usuarioId, Guid contaCorrenteId, decimal valor)
+    {
+        var request = new SomarSubtrairSaldoRequest()
+        {
+            UsuarioId = usuarioId.ToString(),
+            ContaCorrenteId = contaCorrenteId.ToString(),
+            Valor = (double) valor
+        };
+        
+        return (await _contaCorrenteProtoServiceClient.SomarSaldoContaCorrenteAsync(request)).Sucesso;
+    }
+
+    public async Task<bool> SubtrairSaldoContaCorrente(Guid usuarioId, Guid contaCorrenteId, decimal valor)
+    {
+        var request = new SomarSubtrairSaldoRequest()
+        {
+            UsuarioId = usuarioId.ToString(),
+            ContaCorrenteId = contaCorrenteId.ToString(),
+            Valor = (double) valor
+        };
+
+        return (await _contaCorrenteProtoServiceClient.SubtrairSaldoContaCorrenteAsync(request)).Sucesso;
     }
 }

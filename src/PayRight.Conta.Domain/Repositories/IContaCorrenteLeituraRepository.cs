@@ -9,4 +9,6 @@ public interface IContaCorrenteLeituraRepository
     public Task<IEnumerable<ContaCorrente>> BuscarContasCorrente(Guid usuarioId);
 
     public Task<ContaCorrente?> BuscarContaCorrente(Guid usuarioId, Guid contaCorrenteId);
+
+    Task<bool> ExisteContaCorrente(Guid contaCorrenteId, Guid usuarioId);
 }

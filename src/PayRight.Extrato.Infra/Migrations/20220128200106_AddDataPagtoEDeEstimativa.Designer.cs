@@ -11,8 +11,8 @@ using PayRight.Extrato.Infra.Contexts;
 namespace PayRight.Extrato.Infra.Migrations
 {
     [DbContext(typeof(ContextoDbEscrita))]
-    [Migration("20220124144628_PrimeiroMigrate")]
-    partial class PrimeiroMigrate
+    [Migration("20220128200106_AddDataPagtoEDeEstimativa")]
+    partial class AddDataPagtoEDeEstimativa
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,13 +27,19 @@ namespace PayRight.Extrato.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("ContaCorrenteExtratoId")
-                        .HasColumnType("char(36)");
-
                     b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
                         .HasDefaultValueSql("NOW()");
+
+                    b.Property<DateOnly?>("DataPagamento")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("EstimativaPagamento")
+                        .HasColumnType("date");
+
+                    b.Property<Guid?>("ExtratoId")
+                        .HasColumnType("char(36)");
 
                     b.Property<bool>("Pago")
                         .HasColumnType("tinyint(1)");
@@ -49,7 +55,7 @@ namespace PayRight.Extrato.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContaCorrenteExtratoId");
+                    b.HasIndex("ExtratoId");
 
                     b.HasIndex("Id");
 
@@ -100,9 +106,9 @@ namespace PayRight.Extrato.Infra.Migrations
 
             modelBuilder.Entity("PayRight.Extrato.Domain.Entities.Atividade", b =>
                 {
-                    b.HasOne("PayRight.Extrato.Domain.Entities.ContaCorrenteExtrato", null)
+                    b.HasOne("PayRight.Extrato.Domain.Entities.ContaCorrenteExtrato", "Extrato")
                         .WithMany("Atividades")
-                        .HasForeignKey("ContaCorrenteExtratoId");
+                        .HasForeignKey("ExtratoId");
 
                     b.OwnsOne("PayRight.Extrato.Domain.ValueObjects.NomeAtividade", "NomeAtividade", b1 =>
                         {
@@ -126,6 +132,8 @@ namespace PayRight.Extrato.Infra.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("AtividadeId");
                         });
+
+                    b.Navigation("Extrato");
 
                     b.Navigation("NomeAtividade")
                         .IsRequired();

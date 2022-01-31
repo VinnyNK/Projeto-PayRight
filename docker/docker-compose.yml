@@ -19,7 +19,7 @@ services:
       - ConnectionStrings__DbConnection=Server=mysql-leitura;Database=PayRight-Cadastro;Uid=root;Pwd=my_root_password;
       - JWT__ValidAudience=https://localhost
       - JWT__ValidIssuer=PayRightAuthenticator
-      - JWT__Secret=jLDtXMHGPwoXFuLPeB87N4
+      - JWT__Secret=${JWT_PASS}
       - JWT__ExpiresIn=30
       - JWT__ApplicationName=PayRight
     volumes:
@@ -44,7 +44,7 @@ services:
       - ConnectionStrings__DbConnectionEscrita=Server=mysql-escrita;Database=PayRight-Cadastro;Uid=root;Pwd=my_root_password;
       - JWT__ValidAudience=https://localhost
       - JWT__ValidIssuer=PayRightAuthenticator
-      - JWT__Secret=jLDtXMHGPwoXFuLPeB87N4
+      - JWT__Secret=${JWT_PASS}
       - JWT__ExpiresIn=30
       - JWT__ApplicationName=PayRight
     volumes:
@@ -70,7 +70,7 @@ services:
       - ConnectionStrings__DbConnectionEscrita=Server=mysql-escrita;Database=PayRight-Conta;Uid=root;Pwd=my_root_password;
       - JWT__ValidAudience=https://localhost
       - JWT__ValidIssuer=PayRightAuthenticator
-      - JWT__Secret=jLDtXMHGPwoXFuLPeB87N4
+      - JWT__Secret=${JWT_PASS}
       - JWT__ExpiresIn=30
       - JWT__ApplicationName=PayRight
     volumes:

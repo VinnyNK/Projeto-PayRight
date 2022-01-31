@@ -43,7 +43,7 @@ public class CriarAtividadeContaCorrenteCommand : Notifiable<Notification>, ICom
                 .IsGuidNotEmpty(ContaCorrenteId, "", "")
                 .IsGuidNotEmpty(UsuarioId, "", "")
                 .IsGreaterOrEqualsThan(Valor, 0, "Valor", "Valor informado deve ser maior que zero")
-                .IsNotNullOrEmpty(NomeAtividade, "Nome", "")
-            );
+                .IsGreaterOrEqualsThan(DataEstimado, DateOnly.FromDateTime(DateTime.Today), "DataEstimada", "Data estimada não pode ser inferior a hoje")
+        );
     }
 }

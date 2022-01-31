@@ -26,4 +26,15 @@ public class AtividadesController : MainController
         
         return !resultado.Sucesso ? RetornaErro(resultado.CommandNotifications) : Created(nameof(CriarAtividadeContaCorrente), null);
     }
+
+    [HttpGet("{atividadeId:Guid}")]
+    public async Task<IActionResult> PagarAtividadeContaCorrente(Guid atividadeId, Guid contaCorrenteId)
+    {
+        var command = new PagarAtividadeContaCorrenteCommand(BuscaIdDoUsuarioAutenticado(), contaCorrenteId,
+            atividadeId, DateOnly.FromDateTime(DateTime.Today));
+
+        var resultado = await MediatorHandler?.EnviarComando(command)!;
+        
+        return !resultado.Sucesso ? RetornaErro(resultado.CommandNotifications) : NoContent();
+    }
 }

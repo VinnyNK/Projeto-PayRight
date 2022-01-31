@@ -11,6 +11,8 @@ public class ContaCorrenteExtratoMapping : IEntityTypeConfiguration<ContaCorrent
         builder.ToTable("extratos_contas_corrente");
         builder.HasIndex(_ => _.Id);
 
+        builder.HasMany(_ => _.Atividades).WithOne(_ => (ContaCorrenteExtrato) _.Extrato!);
+        
         builder.Property(_ => _.Total).IsRequired().HasPrecision(13, 2).HasDefaultValue(0.00);
         builder.Property(_ => _.TotalEstimado).IsRequired().HasPrecision(13, 2).HasDefaultValue(0.00);
 

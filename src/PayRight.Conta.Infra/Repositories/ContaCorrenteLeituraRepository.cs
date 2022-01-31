@@ -26,4 +26,9 @@ public class ContaCorrenteLeituraRepository : Repository<ContaCorrente>, IContaC
     {
         return await DbSet.FirstOrDefaultAsync(_ => _.Id == contaCorrenteId && _.UsuarioId == usuarioId);
     }
+
+    public async Task<bool> ExisteContaCorrente(Guid contaCorrenteId, Guid usuarioId)
+    {
+        return await DbSet.CountAsync(_ => _.Id == contaCorrenteId && _.UsuarioId == usuarioId) > 0;
+    }
 }

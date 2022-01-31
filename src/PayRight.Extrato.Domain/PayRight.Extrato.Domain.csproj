@@ -11,7 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PayRight.Conta.Grpc\PayRight.Conta.Grpc.csproj" />
       <ProjectReference Include="..\PayRight.Shared\PayRight.Shared.csproj" />
     </ItemGroup>
 

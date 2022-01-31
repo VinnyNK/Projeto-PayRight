@@ -1,4 +1,5 @@
 ﻿using Flunt.Validations;
+using PayRight.Shared.Utils.Extentions;
 using PayRight.Extrato.Domain.Enums;
 using PayRight.Extrato.Domain.ValueObjects;
 using PayRight.Shared.Entities;
@@ -17,12 +18,17 @@ public class Atividade : Entity
 
     public bool Pago { get; private set; }
 
-    public Atividade(string nome, string? descricao, decimal valor, TipoAtividade tipoAtividade)
+    public DateOnly? DataPagamento { get; private set; }
+
+    public DateOnly EstimativaPagamento { get; private set; }
+
+    public Atividade(string nome, string? descricao, decimal valor, TipoAtividade tipoAtividade, DateOnly estimativaPagamento)
     {
         NomeAtividade = new NomeAtividade(nome, descricao);
         Valor = valor;
         TipoAtividade = tipoAtividade;
         Pago = false;
+        EstimativaPagamento = estimativaPagamento;
 
         AddNotifications(NomeAtividade);
         Validar();
@@ -44,6 +50,7 @@ public class Atividade : Entity
     {
         if (Pago || Extrato == null) return;
         Pago = true;
+        DataPagamento = DateOnly.FromDateTime(DateTime.Today);
         Extrato.RealizaCalculoExtratoAtividadePaga(this);
     }
 
@@ -51,6 +58,7 @@ public class Atividade : Entity
     {
         if (Pago == false || Extrato == null) return;
         Pago = false;
+        DataPagamento = null;
         Extrato.RealizaCalculoExtratoRetornoPagamento(this);
     }
 
@@ -69,10 +77,12 @@ public class Atividade : Entity
 
     public sealed override void Validar()
     {
+        var hj = DateOnly.FromDateTime(DateTime.Today);
         AddNotifications(
             new Contract<Atividade>()
                 .Requires()
                 .IsGreaterOrEqualsThan(Valor, 0, "Valor", "Valor informado deve ser maior que zero")
+                .IsGreaterOrEqualsThan(EstimativaPagamento, DateOnly.FromDateTime(DateTime.Today), "EstimativaPagamento", "Data da estimativa deve ser maior que o dia de hoje")
         );
     }
 }
