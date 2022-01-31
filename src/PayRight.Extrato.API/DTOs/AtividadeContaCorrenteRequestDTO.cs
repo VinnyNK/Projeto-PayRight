@@ -9,7 +9,7 @@ public class AtividadeContaCorrenteRequestDTO
 
     public Guid ContaCorrenteId { get; set; }
 
-    public string NomeAtividade { get; set; }
+    public string? NomeAtividade { get; set; }
 
     public string? DescricaoAtividade { get; set; }
 

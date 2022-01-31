@@ -17,4 +17,9 @@ public class AtividadeEscritaRepository : Repository<Atividade>, IAtividadeEscri
         Db.Entry(atividade.NomeAtividade).State = EntityState.Added;
         // Todo: verifica o motivo de alterar o estado de um value obkect
     }
+
+    public void AtualizarAtividade(Atividade atividade)
+    {
+        Db.Update(atividade);
+    }
 }

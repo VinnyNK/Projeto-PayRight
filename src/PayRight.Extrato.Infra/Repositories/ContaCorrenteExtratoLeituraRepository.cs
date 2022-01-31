@@ -18,4 +18,10 @@ public class ContaCorrenteExtratoLeituraRepository : Repository<ContaCorrenteExt
             _.ContaCorrenteId == contaCorrenteId && _.UsuarioId == usuarioId && _.PeriodoExtrato.Mes == mes &&
             _.PeriodoExtrato.Ano == ano)!;
     }
+
+    public async Task<bool> VerificaSeContaCorrenteEhDoUsuario(Guid contaCorrenteId, Guid usuarioId)
+    {
+        return await DbSet.FirstOrDefaultAsync(_ => _.ContaCorrenteId == contaCorrenteId && _.UsuarioId == usuarioId) !=
+               null;
+    }
 }

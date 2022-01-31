@@ -12,7 +12,7 @@ public class AutoMapperConfiguration : Profile
             .ConstructUsing(_ => new CriarAtividadeContaCorrenteCommand(
                 _.ContaCorrenteId,
                 _.UsuarioId,
-                _.NomeAtividade,
+                _.NomeAtividade!,
                 _.DescricaoAtividade,
                 _.Valor,
                 _.TipoAtividade,

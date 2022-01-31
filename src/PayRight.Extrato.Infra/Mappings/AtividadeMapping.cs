@@ -17,6 +17,8 @@ public class AtividadeMapping : IEntityTypeConfiguration<Atividade>
         builder.Property(_ => _.Pago).IsRequired();
         builder.Property(_ => _.Valor).HasPrecision(13, 2).HasDefaultValue(0.00);
         builder.Property(_ => _.TipoAtividade).IsRequired();
+        builder.Property(_ => _.DataPagamento);
+        builder.Property(_ => _.EstimativaPagamento).IsRequired();
 
         builder.OwnsOne(_ => _.NomeAtividade, vo =>
         {

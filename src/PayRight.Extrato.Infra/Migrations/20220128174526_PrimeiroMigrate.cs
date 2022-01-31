@@ -36,6 +36,7 @@ namespace PayRight.Extrato.Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ExtratoId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     NomeAtividade_Nome = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NomeAtividade_Descricao = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
@@ -43,24 +44,23 @@ namespace PayRight.Extrato.Infra.Migrations
                     Valor = table.Column<decimal>(type: "decimal(13,2)", precision: 13, scale: 2, nullable: false, defaultValue: 0m),
                     TipoAtividade = table.Column<int>(type: "int", nullable: false),
                     Pago = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ContaCorrenteExtratoId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CriadoEm = table.Column<DateTime>(type: "datetime(6)", nullable: false, defaultValueSql: "NOW()")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_atividades", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_atividades_extratos_contas_corrente_ContaCorrenteExtratoId",
-                        column: x => x.ContaCorrenteExtratoId,
+                        name: "FK_atividades_extratos_contas_corrente_ExtratoId",
+                        column: x => x.ExtratoId,
                         principalTable: "extratos_contas_corrente",
                         principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_atividades_ContaCorrenteExtratoId",
+                name: "IX_atividades_ExtratoId",
                 table: "atividades",
-                column: "ContaCorrenteExtratoId");
+                column: "ExtratoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_atividades_Id",

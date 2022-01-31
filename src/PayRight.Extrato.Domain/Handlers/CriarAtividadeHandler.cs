@@ -35,12 +35,13 @@ public class CriarAtividadeHandler : Notifiable<Notification>, IHandler<CriarAti
         }
 
         var atividade = new Atividade(command.NomeAtividade, command.DescricaoAtividade, command.Valor,
-            command.TipoAtividade);
+            command.TipoAtividade, command.DataEstimado);
         AddNotifications(atividade);
 
         var extrato = await BuscarExtratoContaCorrente(command.ContaCorrenteId, command.UsuarioId, 
             command.DataEstimado.Month, command.DataEstimado.Year);
-
+        AddNotifications(extrato);
+        
         if (!IsValid)
             return new CommandResult(false, "problemas", Notifications); 
         
@@ -66,14 +67,12 @@ public class CriarAtividadeHandler : Notifiable<Notification>, IHandler<CriarAti
         AddNotifications(extrato);
         if (!IsValid) return extrato;
         await _unitOfWork.ContaCorrenteExtratoEscritaRepository.AdicionaExtrato(extrato);
-        await _unitOfWork.Commit();
 
         return extrato;
     }
 
     private async Task<bool> ValidarContaCorrenteEUsuario(Guid contaCorrenteId, Guid usuarioId)
     {
-        var resultado = await _contaCorrenteGrpcService.ValidarContaCorrente(contaCorrenteId, usuarioId);
-        return resultado.EhValido;
+        return await _contaCorrenteGrpcService.ValidarContaCorrente(contaCorrenteId, usuarioId);
     }
 }
