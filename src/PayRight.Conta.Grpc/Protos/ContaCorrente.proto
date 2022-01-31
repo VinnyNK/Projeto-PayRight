@@ -4,6 +4,8 @@ option csharp_namespace = "PayRight.Conta.Grpc.Protos";
 
 service ContaCorrenteProtoService {
   rpc ValidarContaCorrente(ValidarContaCorrenteRequest) returns (ValidarContaCorrenteResponse);
+  rpc SomarSaldoContaCorrente(SomarSubtrairSaldoRequest) returns (SomarSubtrairSaldoResponse);
+  rpc SubtrairSaldoContaCorrente(SomarSubtrairSaldoRequest) returns (SomarSubtrairSaldoResponse);
 }
 
 message ValidarContaCorrenteRequest {
@@ -13,4 +15,14 @@ message ValidarContaCorrenteRequest {
 
 message ValidarContaCorrenteResponse {
   bool EhValido = 1;
+}
+
+message SomarSubtrairSaldoRequest {
+  string usuarioId = 1;
+  string contaCorrenteId = 2;
+  double valor = 3;
+}
+
+message SomarSubtrairSaldoResponse {
+  bool sucesso = 1;
 }
