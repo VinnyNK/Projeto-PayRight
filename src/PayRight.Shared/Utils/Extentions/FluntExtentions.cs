@@ -39,4 +39,12 @@ public static class FluntExtentions
 
         return contract;
     }
+    
+    public static Contract<T> IsGreaterOrEqualsThan<T>(this Contract<T> contract, DateOnly val, DateOnly comparer, string key, string message)
+    {
+        if (val < comparer)
+            contract.AddNotification(key, message);
+        
+        return contract;
+    }
 }
