@@ -7,4 +7,6 @@ public interface IContaCorrenteQueries
     Task<IEnumerable<ContaCorrenteDTO>> BuscarContasCorrentes(Guid usuarioId);
 
     Task<ContaCorrenteDTO?> BuscarContaCorrente(Guid usuarioId, Guid contaCorrenteId);
+
+    Task<bool> ValidaContaCorrenteComUsuario(Guid contaCorrenteId, Guid usuarioId);
 }
