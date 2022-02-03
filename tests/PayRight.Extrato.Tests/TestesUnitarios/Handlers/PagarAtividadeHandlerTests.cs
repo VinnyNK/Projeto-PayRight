@@ -47,7 +47,7 @@ public class PagarAtividadeHandlerTests
         unitOfWork.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
         extratoLeituraRepo.Setup(_ => _.VerificaSeContaCorrenteEhDoUsuario(command.ContaCorrenteId, command.UsuarioId))
             .Returns(Task.FromResult(true));
-        atividadeLeituraRepo.Setup(_ => _.BuscarAtividade(command.ContaCorrenteId, command.AtividadeId))
+        atividadeLeituraRepo.Setup(_ => _.BuscarAtividadeComExtrato(command.ContaCorrenteId, command.AtividadeId))
             .Returns(Task.FromResult<Atividade?>(atividade));
         grpcService.Setup(_ => _.SubtrairSaldoContaCorrente(command.UsuarioId, command.ContaCorrenteId, atividade.Valor))
             .Returns(Task.FromResult(true));
@@ -83,7 +83,7 @@ public class PagarAtividadeHandlerTests
         unitOfWork.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
         extratoLeituraRepo.Setup(_ => _.VerificaSeContaCorrenteEhDoUsuario(command.ContaCorrenteId, command.UsuarioId))
             .Returns(Task.FromResult(true));
-        atividadeLeituraRepo.Setup(_ => _.BuscarAtividade(command.ContaCorrenteId, command.AtividadeId))
+        atividadeLeituraRepo.Setup(_ => _.BuscarAtividadeComExtrato(command.ContaCorrenteId, command.AtividadeId))
             .Returns(Task.FromResult<Atividade?>(atividade));
         grpcService.Setup(_ => _.SomarSaldoContaCorrente(command.UsuarioId, command.ContaCorrenteId, atividade.Valor))
             .Returns(Task.FromResult(true));
@@ -118,7 +118,7 @@ public class PagarAtividadeHandlerTests
         unitOfWork.Setup(_ => _.AtividadeEscritaRepository).Returns(atividadeEscritaRepo.Object);
         extratoLeituraRepo.Setup(_ => _.VerificaSeContaCorrenteEhDoUsuario(command.ContaCorrenteId, command.UsuarioId))
             .Returns(Task.FromResult(false));
-        atividadeLeituraRepo.Setup(_ => _.BuscarAtividade(command.ContaCorrenteId, command.AtividadeId))
+        atividadeLeituraRepo.Setup(_ => _.BuscarAtividadeComExtrato(command.ContaCorrenteId, command.AtividadeId))
             .Returns(Task.FromResult<Atividade?>(atividade));
         
         var resultado = await handler.Handle(command, CancellationToken.None);
@@ -141,7 +141,7 @@ public class PagarAtividadeHandlerTests
 
         // Act
         unitOfWork.Setup(_ => _.AtividadeLeituraRepository).Returns(atividadeLeituraRepo.Object);
-        atividadeLeituraRepo.Setup(_ => _.BuscarAtividade(command.ContaCorrenteId, command.AtividadeId))
+        atividadeLeituraRepo.Setup(_ => _.BuscarAtividadeComExtrato(command.ContaCorrenteId, command.AtividadeId))
             .Returns(Task.FromResult<Atividade?>(null));
         
         var resultado = await handler.Handle(command, CancellationToken.None);
@@ -193,7 +193,7 @@ public class PagarAtividadeHandlerTests
         unitOfWork.Setup(_ => _.Commit()).Returns(Task.FromResult(false));
         extratoLeituraRepo.Setup(_ => _.VerificaSeContaCorrenteEhDoUsuario(command.ContaCorrenteId, command.UsuarioId))
             .Returns(Task.FromResult(true));
-        atividadeLeituraRepo.Setup(_ => _.BuscarAtividade(command.ContaCorrenteId, command.AtividadeId))
+        atividadeLeituraRepo.Setup(_ => _.BuscarAtividadeComExtrato(command.ContaCorrenteId, command.AtividadeId))
             .Returns(Task.FromResult<Atividade?>(atividade));
         grpcService.Setup(_ => _.SomarSaldoContaCorrente(command.UsuarioId, command.ContaCorrenteId, atividade.Valor))
             .Returns(Task.FromResult(true));
@@ -230,7 +230,7 @@ public class PagarAtividadeHandlerTests
         unitOfWork.Setup(_ => _.Commit()).Returns(Task.FromResult(true));
         extratoLeituraRepo.Setup(_ => _.VerificaSeContaCorrenteEhDoUsuario(command.ContaCorrenteId, command.UsuarioId))
             .Returns(Task.FromResult(true));
-        atividadeLeituraRepo.Setup(_ => _.BuscarAtividade(command.ContaCorrenteId, command.AtividadeId))
+        atividadeLeituraRepo.Setup(_ => _.BuscarAtividadeComExtrato(command.ContaCorrenteId, command.AtividadeId))
             .Returns(Task.FromResult<Atividade?>(atividade));
         grpcService.Setup(_ => _.SomarSaldoContaCorrente(command.UsuarioId, command.ContaCorrenteId, atividade.Valor))
             .Returns(Task.FromResult(true));

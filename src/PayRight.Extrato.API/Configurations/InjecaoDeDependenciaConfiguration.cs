@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using PayRight.Extrato.Domain.Queries;
 using PayRight.Extrato.Domain.UnitOfWork;
 using PayRight.Extrato.Infra.UnitOfWork;
 using PayRight.Shared.Mediator;
@@ -13,7 +14,7 @@ public static class InjecaoDeDependenciaConfiguration
         service.AddScoped<IUnitOfWork, UnitOfWork>();
 
         // Queries
-        
+        service.AddScoped<IExtratoContaCorrenteQueries, ExtratoContaCorrenteQueries>();        
 
         // Mediatr
         service.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());

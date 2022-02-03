@@ -11,9 +11,15 @@ public class AtividadeLeituraRepository : Repository<Atividade>, IAtividadeLeitu
     {
     }
     
-    public async Task<Atividade?> BuscarAtividade(Guid contaCorrenteId, Guid atividadeId)
+    public async Task<Atividade?> BuscarAtividadeComExtrato(Guid contaCorrenteId, Guid atividadeId)
     {
         //Todo: Verificar como validar conta corrente id
         return await DbSet.Include(_ => _.Extrato).FirstOrDefaultAsync(_ => _.Id == atividadeId);
+    }
+
+    public async Task<Atividade?> BuscarAtividadePorId(Guid atividadeId, Guid usuarioId, Guid contaCorrenteId)
+    {
+        //Todo: Dividir atividade para colocar contaCorrenteId
+        return await DbSet.FirstOrDefaultAsync(_ => _.Id == atividadeId && _.Extrato!.UsuarioId == usuarioId);
     }
 }
