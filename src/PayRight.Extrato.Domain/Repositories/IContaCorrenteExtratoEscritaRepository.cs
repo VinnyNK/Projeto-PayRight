@@ -7,4 +7,5 @@ public interface IContaCorrenteExtratoEscritaRepository
     Task AdicionaExtrato(ContaCorrenteExtrato extrato);
     void AtualizarExtrato(ContaCorrenteExtrato extrato);
     Task AdicionaOuAtualizaExtrato(ContaCorrenteExtrato extrato);
+    
 }

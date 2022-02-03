@@ -10,7 +10,6 @@ namespace PayRight.Extrato.Domain.Handlers;
 
 public class CriarAtividadeHandler : Notifiable<Notification>, IHandler<CriarAtividadeContaCorrenteCommand>
 {
-
     private readonly IUnitOfWork _unitOfWork;
     private readonly IContaCorrenteGrpcService _contaCorrenteGrpcService;
 
@@ -31,7 +30,7 @@ public class CriarAtividadeHandler : Notifiable<Notification>, IHandler<CriarAti
         if (!await ValidarContaCorrenteEUsuario(command.ContaCorrenteId, command.UsuarioId))
         {
             AddNotification("ContaCorrente", "Conta Corrente informada não existe ou não pertence ao usuario");
-            return new CommandResult(false, "Problema na validação", Notifications);
+            return new CommandResult(false, "Conta corrente não pertence ao usuário", Notifications);
         }
 
         var atividade = new Atividade(command.NomeAtividade, command.DescricaoAtividade, command.Valor,
@@ -43,7 +42,7 @@ public class CriarAtividadeHandler : Notifiable<Notification>, IHandler<CriarAti
         AddNotifications(extrato);
         
         if (!IsValid)
-            return new CommandResult(false, "problemas", Notifications); 
+            return new CommandResult(false, "Problemas de validação", Notifications); 
         
         extrato.AdicionarAtividade(atividade);
         _unitOfWork.ContaCorrenteExtratoEscritaRepository.AtualizarExtrato(extrato);
@@ -52,8 +51,8 @@ public class CriarAtividadeHandler : Notifiable<Notification>, IHandler<CriarAti
         var retorno = await _unitOfWork.Commit();
 
         return retorno
-            ? new CommandResult(true, "", Notifications)
-            : new CommandResult(false, "", Notifications);
+            ? new CommandResult(true, "Problemas para salvar no Banco de Dados", Notifications)
+            : new CommandResult(false, "Atividade criado com sucesso", Notifications);
     }
 
     private async Task<ContaCorrenteExtrato> BuscarExtratoContaCorrente(Guid contaCorrenteId, Guid usuarioId, int mes, int ano)

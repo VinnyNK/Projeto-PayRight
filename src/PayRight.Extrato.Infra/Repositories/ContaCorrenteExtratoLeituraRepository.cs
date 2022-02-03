@@ -24,4 +24,16 @@ public class ContaCorrenteExtratoLeituraRepository : Repository<ContaCorrenteExt
         return await DbSet.FirstOrDefaultAsync(_ => _.ContaCorrenteId == contaCorrenteId && _.UsuarioId == usuarioId) !=
                null;
     }
+
+    public async Task<ContaCorrenteExtrato?> BuscaExtrato(Guid extratoId, Guid usuarioId)
+    {
+        return await DbSet.AsNoTracking().Include(_ => _.Atividades)
+            .FirstOrDefaultAsync(_ => _.Id == extratoId && _.UsuarioId == usuarioId);
+    }
+
+    public async Task<ContaCorrenteExtrato?> BuscaExtratoPorData(Guid contaCorrenteId, int mes, int ano)
+    {
+        return await DbSet.AsNoTracking().Include(_ => _.Atividades)
+            .FirstOrDefaultAsync(_ => _.ContaCorrenteId == contaCorrenteId && _.PeriodoExtrato.Mes == mes && _.PeriodoExtrato.Ano == ano);
+    }
 }

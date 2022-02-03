@@ -28,7 +28,7 @@ public class PagamentoAtividadeHandler: Notifiable<Notification>, IHandler<Pagar
             return new CommandResult(false, "Problemas no comando", Notifications);
         }
         
-        var atividade = await _unitOfWork.AtividadeLeituraRepository.BuscarAtividade(command.ContaCorrenteId, command.AtividadeId);
+        var atividade = await _unitOfWork.AtividadeLeituraRepository.BuscarAtividadeComExtrato(command.ContaCorrenteId, command.AtividadeId);
         if (atividade == null)
         {
             AddNotification("AtividadeId", "Atividade informada não existe ou Conta Corrente informada não pertence á atividade");
@@ -46,8 +46,8 @@ public class PagamentoAtividadeHandler: Notifiable<Notification>, IHandler<Pagar
         var retorno = await _unitOfWork.Commit();
 
         return retorno
-            ? new CommandResult(true, "", Notifications)
-            : new CommandResult(false, "", Notifications);
+            ? new CommandResult(true, "Problemas para salvar no Banco de Dados", Notifications)
+            : new CommandResult(false, "Atividade paga com sucesso", Notifications);
     }
 
     private async Task PagarAtividade(Atividade atividade, Guid contaCorrenteId, Guid usuarioId)
